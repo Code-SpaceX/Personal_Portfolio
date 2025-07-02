@@ -9,14 +9,12 @@ import {
   TextLoop,
   Title,
   Span,
-  SubTitle,
-  ResumeButton,
 } from "./HeroStyle";
 import HeroImg from "../../images/HeroImage.jpg";
 import Typewriter from "typewriter-effect";
 import { Bio } from "../../data/constants";
 import HeroSectionVideo from './HeroSectionVideo.jsx';
-
+import { ActionButtons, ContactInfo, SocialLinks } from './Bio.jsx';
 
 const glassStyle = {
   background: "rgba(255, 255, 255, 0.15)", // translucent white
@@ -40,7 +38,12 @@ const HeroSection = () => {
         <HeroInnerContainer style={{ gap: "3rem" }}>
           {/* Glass effect container for text */}
           <HeroLeftContainer id="Left" style={glassStyle}>
-            <Title>Hi I am</Title>
+           <div className="inline-block bg-blue-100 dark:bg-blue-900/50 backdrop-blur-sm text-blue-600 dark:text-blue-300 text-sm font-medium px-4 py-2 rounded-full">
+              Hey! <span className="inline-block origin-[70%_70%] animate-wave">👋</span> I'm
+              </div>
+              <h1 className="text-4xl lg:text-6xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 bg-clip-text text-transparent animate-gradient">
+                ATUL OLI
+              </h1>
             <TextLoop>
               <Title>
                 <Span>
@@ -54,32 +57,9 @@ const HeroSection = () => {
                 </Span>
               </Title>
             </TextLoop>
-            <SubTitle>{Bio.description}</SubTitle>
-            <ResumeButton
-              href={Bio.resume}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                background:
-                  "rgba(255, 255, 255, 0.25)",
-                color: "#000",
-                padding: "0.75rem 1.5rem",
-                borderRadius: "12px",
-                border: "none",
-                cursor: "pointer",
-                fontWeight: "600",
-                marginTop: "1rem",
-                transition: "background 0.3s ease",
-              }}
-              onMouseEnter={e =>
-                (e.currentTarget.style.background = "rgba(255, 255, 255, 0.4)")
-              }
-              onMouseLeave={e =>
-                (e.currentTarget.style.background = "rgba(255, 255, 255, 0.25)")
-              }
-            >
-              Check Resume
-            </ResumeButton>
+            <ContactInfo />
+            <ActionButtons />
+            <SocialLinks />
           </HeroLeftContainer>
 
           <HeroRightContainer

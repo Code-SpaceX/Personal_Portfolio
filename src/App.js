@@ -1,11 +1,12 @@
+// App.js
 import { ThemeProvider } from "styled-components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { darkTheme, lightTheme } from './utils/Themes.js';
 import Navbar from "./components/Navbar";
 import './App.css';
 import { BrowserRouter as Router } from 'react-router-dom';
 import HeroSection from "./components/HeroSection";
-// import About from "./components/About";
+import About from "./components/About/About";
 import Skills from "./components/Skills";
 import Projects from "./components/Projects";
 import Contact from "./components/Contact";
@@ -39,10 +40,25 @@ const Wrapper = styled.div`
 function App() {
   const [darkMode, setDarkMode] = useState(true);
   const [openModal, setOpenModal] = useState({ state: false, project: null });
-  
+
   const toggleTheme = () => {
-    setDarkMode(prev => !prev);
+    const newMode = !darkMode;
+    setDarkMode(newMode);
+    if (newMode) {
+      document.documentElement.classList.add('dark'); // Tailwind dark mode
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+    localStorage.setItem('theme', newMode ? 'dark' : 'light');
   };
+
+  // Initialize from localStorage
+  useEffect(() => {
+    const saved = localStorage.getItem('theme') || 'dark';
+    const isDark = saved === 'dark';
+    setDarkMode(isDark);
+    document.documentElement.classList.toggle('dark', isDark);
+  }, []);
 
   return (
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
@@ -50,6 +66,7 @@ function App() {
         <Navbar toggleTheme={toggleTheme} />
         <Body>
           <HeroSection />
+          <About />
           <Wrapper>
             <Skills />
             <Experience />

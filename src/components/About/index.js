@@ -1,5 +1,5 @@
 import React from 'react'
-import { AboutContainer, AboutCard, AboutText, BorderGlow, SectionTitle } from './AboutStyled';
+import { AboutContainer, AboutCard, AboutText, BorderGlow, SectionTitle } from './AboutStyle';
 import { SocialMediaIcons, SocialMediaIcon } from '../Navbar/NavbarStyledComponent';
 import { FaLinkedin, FaGithub, FaTwitter } from 'react-icons/fa';
 const About = () => {

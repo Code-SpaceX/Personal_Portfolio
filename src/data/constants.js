@@ -1,18 +1,12 @@
 export const Bio = {
-  name: "Atul Oli",
+  name: "Creater and Developer",
   roles: [
-    "Atul Oli",
     "Web Developer",
     "Competetive Programmer",
     "Cloud Enthusiast",
-
     "Tutor",
   ],
-  description:
-    " A Computer Student from Uttarakhand with rapid learning abilities, adept implementation skills, and a talent for clear explanations.",
   github: "https://github.com/27-Atul",
-  resume:
-    "https://drive.google.com/file/d/1XXSpZ295xS3tFSt77IjAqLlwNUL1p_0P/view?usp=sharing ",
   linkedin: "https://www.linkedin.com/in/atul-oli27-intech/",
   twitter: "https://twitter.com/Atul_27intech",
   insta: "https://www.instagram.com/",

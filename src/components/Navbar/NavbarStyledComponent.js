@@ -1,7 +1,7 @@
 import { Link as LinkR } from 'react-router-dom';
 import styled from 'styled-components';
 export const Nav = styled.div`
-  background: rgba(110, 110, 110, 0.3); // Neutral translucent background
+  background: rgba(67, 67, 69, 0.1); // Neutral translucent background
   backdrop-filter: blur(80px);
   -webkit-backdrop-filter: blur(100px);
   height: ${({ shrink }) => (shrink ? '45px' : '54px')};
