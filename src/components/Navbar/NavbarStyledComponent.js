@@ -1,8 +1,7 @@
 import { Link as LinkR } from 'react-router-dom';
 import styled from 'styled-components';
-
 export const Nav = styled.div`
-  background: ${({ theme }) => theme.card_light + '99'};
+  background: rgba(110, 110, 110, 0.3); // Neutral translucent background
   backdrop-filter: blur(80px);
   -webkit-backdrop-filter: blur(100px);
   height: ${({ shrink }) => (shrink ? '45px' : '54px')};
@@ -15,7 +14,6 @@ export const Nav = styled.div`
   z-index: 10;
   transition: all 0.3s ease;
 `;
-
 
 export const NavbarContainer = styled.div`
   display: flex;
@@ -45,9 +43,9 @@ export const Span = styled.div`
   transition: font-size 0.3s ease;
 `;
 
-
+// NAV ITEMS
 export const NavItemsWrapper = styled.div`
-  background: ${({ theme }) => theme.card_light + '99'};
+  background: rgba(128, 128, 128, 0.3);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-radius: 12px;
@@ -60,7 +58,6 @@ export const NavItemsWrapper = styled.div`
   }
 `;
 
-
 export const NavItems = styled.ul`
   display: flex;
   align-items: center;
@@ -68,6 +65,9 @@ export const NavItems = styled.ul`
   gap: 32px;
   padding: 0;
   list-style: none;
+    @media screen and (max-width: 768px) {
+    display: none; /* Hide NavItems on mobile */
+  }
 `;
 
 export const NavLink = styled.a`
@@ -76,6 +76,7 @@ export const NavLink = styled.a`
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   text-decoration: none;
+
   :hover {
     color: ${({ theme }) => theme.primary};
   }
@@ -85,28 +86,27 @@ export const NavLink = styled.a`
   }
 `;
 
+// GITHUB BUTTON (Updated Colors)
 export const GitHubButton = styled.a`
   backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  background: rgba(255, 255, 255, 0.6);
-  border: 1.5px solid ${({ theme }) => theme.primary};
+  background: ${({ theme }) => theme.accent + '22'};
+  border: 1.5px solid ${({ theme }) => theme.accent};
   border-radius: 12px;
   padding: 8px 18px;
-  color: ${({ theme }) => theme.primary};
+  color: ${({ theme }) => theme.accent};
   font-weight: 500;
   font-size: 16px;
   text-decoration: none;
   transition: all 0.4s ease-in-out;
   cursor: pointer;
-
   display: flex;
   align-items: center;
   justify-content: center;
 
   :hover {
-    background: ${({ theme }) => theme.primary};
+    background: ${({ theme }) => theme.accent};
     color: ${({ theme }) => theme.white};
-    box-shadow: 0 4px 20px ${({ theme }) => theme.primary + '44'};
+    box-shadow: 0 4px 20px ${({ theme }) => theme.accent + '44'};
   }
 
   @media screen and (max-width: 768px) {
@@ -114,11 +114,32 @@ export const GitHubButton = styled.a`
   }
 `;
 
+// DARK/LIGHT MODE TOGGLE BUTTON
+export const ThemeToggleButton = styled.button`
+  margin-left: 12px;
+  padding: 8px 16px;
+  border-radius: 12px;
+  background: ${({ theme }) => theme.toggle_bg};
+  color: ${({ theme }) => theme.toggle_text};
+  border: 1.5px solid ${({ theme }) => theme.toggle_border};
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
 
+  :hover {
+    background: ${({ theme }) => theme.toggle_hover_bg};
+    color: ${({ theme }) => theme.white};
+  }
 
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+`;
+
+// BUTTON CONTAINER
 export const ButtonContainer = styled.div`
   width: 80%;
-  height: 100%;
+  height: 80%;
   display: flex;
   justify-content: end;
   align-items: center;
@@ -129,6 +150,7 @@ export const ButtonContainer = styled.div`
   }
 `;
 
+// MOBILE ICON
 export const MobileIcon = styled.div`
   display: none;
 
@@ -144,6 +166,7 @@ export const MobileIcon = styled.div`
   }
 `;
 
+// MOBILE MENU
 export const MobileMenu = styled.div`
   display: flex;
   flex-direction: column;
@@ -154,7 +177,7 @@ export const MobileMenu = styled.div`
   right: 0;
   width: 100%;
   padding: 12px 40px 24px 40px;
-  background: ${({ theme }) => theme.card_light + '99'};
+  background: rgba(128, 128, 128, 0.3);
   transition: all 0.6s ease-in-out;
   transform: ${({ isOpen }) => (isOpen ? 'translateY(0)' : 'translateY(-100%)')};
   border-radius: 0 0 20px 20px;
@@ -163,6 +186,7 @@ export const MobileMenu = styled.div`
   z-index: ${({ isOpen }) => (isOpen ? '1000' : '-1000')};
 `;
 
+// MOBILE NAVIGATION ITEMS
 export const MobileLink = styled.a`
   color: ${({ theme }) => theme.text_primary};
   font-weight: 500;
@@ -239,3 +263,25 @@ export const MobileNavLogo = styled(LinkR)`
     padding: 0 0px;
   }
 `;
+
+export const MobileThemeToggleButton = styled.button`
+  padding: 8px 16px;
+  border-radius: 12px;
+  background: ${({ theme }) => theme.toggle_bg};
+  color: ${({ theme }) => theme.toggle_text};
+  border: 1.5px solid ${({ theme }) => theme.toggle_border};
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  :hover {
+    background: ${({ theme }) => theme.toggle_hover_bg};
+    color: ${({ theme }) => theme.white};
+  }
+
+  @media screen and (min-width: 769px) {
+    display: none;
+  }
+`;
+
+
