@@ -23,6 +23,7 @@
 
 
 export const darkTheme = {
+  navBg: 'rgba(0, 0, 0, 0.6)',
   bg: "#1C1C27",
   bgLight: "#1C1E27",
   primary: "#854CE6",
@@ -42,6 +43,7 @@ export const darkTheme = {
 };
 
 export const lightTheme = {
+  navBg: 'rgba(255, 255, 255, 0.1)',
   bg: "#FFFFFF",
   bgLight: "#F0F0F0",
   primary: "#BE1ADB",

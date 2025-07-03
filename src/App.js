@@ -15,7 +15,7 @@ import Experience from "./components/Experience";
 import Education from "./components/Education/Education.jsx";
 import ProjectDetails from "./components/ProjectDetails";
 import styled from "styled-components";
-
+import InfiniteScrollText from "./components/HorizontalTextScroll/InfiniteScrollText.jsx";
 const Body = styled.div`
   background-color: ${({ theme }) => theme.bg};
   width: 100%;
@@ -68,6 +68,7 @@ function App() {
           <HeroSection />
           <About />
           <Wrapper>
+            <InfiniteScrollText />
             <Skills />
             <Education />
             <Experience />

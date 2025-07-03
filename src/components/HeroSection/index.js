@@ -36,58 +36,91 @@ const HeroSection = () => {
           {/* <HeroSectionVideo /> */}
         </HeroBg>
 
-        <HeroInnerContainer style={{ gap: "3rem" }}>
-          {/* Glass effect container for text */}
-          <HeroLeftContainer id="Left" style={glassStyle}>
-           <div className="inline-block bg-blue-100 dark:bg-blue-900/50 backdrop-blur-sm text-blue-600 dark:text-blue-300 text-sm font-medium px-4 py-2 rounded-full">
-              Hey! <span className="inline-block origin-[70%_70%] animate-wave">👋</span> I'm
-              </div>
-              <h1 className="text-4xl lg:text-6xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 bg-clip-text text-transparent animate-gradient">
-                ATUL OLI
-              </h1>
-            <TextLoop>
-              <Title>
-                <Span>
-                  <Typewriter
-                    options={{
-                      strings: Bio.roles,
-                      autoStart: true,
-                      loop: true,
-                    }}
-                  />
-                </Span>
-              </Title>
-            </TextLoop>
-            <ContactInfo />
-            <ActionButtons />
-            <SocialLinks />
-          </HeroLeftContainer>
+      <HeroInnerContainer style={{ gap: "3rem", position: 'relative' }}>
+  <HeroLeftContainer id="Left" style={{ ...glassStyle, position: 'relative' }}>
+    <button
+      className="text-sm font-medium text-[#915eff] border border-[#915eff] rounded px-6 py-2 hover:bg-[#915eff] hover:text-white transition-colors duration-300"
+      style={{
+        position: 'absolute',
+        top: '-1.4rem',
+        right: '-10%',
+        transform: 'translateX(-50%)',
+        width: '160px',
+        textAlign: 'center',
+        backgroundColor: 'rgba(0, 128, 0, 0.15)',
+        color: '#32CD32',
+        backdropFilter: 'blur(80px)',
+        WebkitBackdropFilter: 'blur(8px)',
+        borderRadius: '12px',
+        border: '1.5px solid rgba(50, 205, 50, 0.5)',
+        boxShadow: '0 4px 15px rgba(50, 205, 50, 0.6)',
+        fontWeight: '600',
+        fontSize: '0.9rem',
+        cursor: 'pointer',
+        transition: 'all 0.3s ease',
+      }}
+      onMouseEnter={e => {
+        e.currentTarget.style.backgroundColor = 'rgba(0, 128, 0, 0.3)';
+        e.currentTarget.style.boxShadow = '0 6px 20px rgba(52, 25, 228, 0.9)';
+      }}
+      onMouseLeave={e => {
+        e.currentTarget.style.backgroundColor = 'rgba(0, 128, 0, 0.1)';
+        e.currentTarget.style.boxShadow = '0 4px 15px rgba(66, 206, 23, 0.6)';
+      }}
+    >
+      Open for Work
+    </button>
 
-          <HeroRightContainer
-            id="Right"
-            style={{
-              ...glassStyle,
-              padding: "1rem",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              width: "220px",
-              height: "220px",
+    <div className="inline-block bg-blue-100 dark:bg-blue-900/50 backdrop-blur-sm text-blue-600 dark:text-blue-300 text-sm font-medium px-4 py-2 rounded-full">
+      Hey! <span className="inline-block origin-[70%_70%] animate-wave">👋</span> I'm
+    </div>
+    <h1 className="text-4xl lg:text-6xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 bg-clip-text text-transparent animate-gradient">
+      ATUL OLI
+    </h1>
+    <TextLoop>
+      <Title>
+        <Span>
+          <Typewriter
+            options={{
+              strings: Bio.roles,
+              autoStart: true,
+              loop: true,
             }}
-          >
-            <Img
-              src={HeroImg}
-              alt="profile"
-              style={{
-                borderRadius: FitScreen ? "10%": "16%",
-                width: "500px",
-                height: "220px",
-                objectFit: "cover",
-                boxShadow: "0 8px 20px rgba(0,0,0,0.2)",
-              }}
-            />
-          </HeroRightContainer>
-        </HeroInnerContainer>
+          />
+        </Span>
+      </Title>
+    </TextLoop>
+    <ContactInfo />
+    <ActionButtons />
+    <SocialLinks />
+  </HeroLeftContainer>
+
+  <HeroRightContainer
+    id="Right"
+    style={{
+      ...glassStyle,
+      padding: "1rem",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      width: "220px",
+      height: "220px",
+    }}
+  >
+    <Img
+      src={HeroImg}
+      alt="profile"
+      style={{
+        borderRadius: FitScreen ? "10%" : "16%",
+        width: "500px",
+        height: "220px",
+        objectFit: "cover",
+        boxShadow: "0 8px 20px rgba(0,0,0,0.2)",
+      }}
+    />
+  </HeroRightContainer>
+</HeroInnerContainer>
+
       </HeroContainer>
     </div>
   );

@@ -1,9 +1,9 @@
 import { Link as LinkR } from 'react-router-dom';
 import styled from 'styled-components';
 export const Nav = styled.div`
-  background: rgba(67, 67, 69, 0.1); // Neutral translucent background
+  background: ${({ theme }) => theme.navBg};
   backdrop-filter: blur(80px);
-  -webkit-backdrop-filter: blur(100px);
+  -webkit-backdrop-filter: blur(10px);
   height: ${({ shrink }) => (shrink ? '45px' : '54px')};
   display: flex;
   align-items: center;
@@ -119,16 +119,17 @@ export const ThemeToggleButton = styled.button`
   margin-left: 12px;
   padding: 8px 16px;
   border-radius: 12px;
-  background: ${({ theme }) => theme.toggle_bg};
-  color: ${({ theme }) => theme.toggle_text};
-  border: 1.5px solid ${({ theme }) => theme.toggle_border};
+  color: ${({ theme }) => theme.accent};
+  background: ${({ theme }) => theme.accent + '22'};
+  border: 1.5px solid ${({ theme }) => theme.accent};
   font-size: 14px;
   cursor: pointer;
   transition: all 0.3s ease;
 
   :hover {
-    background: ${({ theme }) => theme.toggle_hover_bg};
+    background: ${({ theme }) => theme.accent};
     color: ${({ theme }) => theme.white};
+    box-shadow: 0 4px 20px ${({ theme }) => theme.accent + '44'};
   }
 
   @media screen and (max-width: 768px) {

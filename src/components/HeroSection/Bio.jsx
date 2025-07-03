@@ -15,7 +15,7 @@ import { SiLeetcode } from 'react-icons/si';
 // 📄 Resume & Contact Buttons
 export function ActionButtons() {
   return (
-    <div className="flex flex-wrap gap-4 justify-start">
+      <div className="flex flex-wrap gap-4 justify-start">
       {/* Resume Button */}
       <a
         href="/assets/Khushi_Tyagi_Resume.pdf"
@@ -46,23 +46,8 @@ export function ActionButtons() {
         <FileText className="w-5 h-5" />
         <span>Uttarakhand</span>
       </a>
-
-      {/* "Open for Work" Badge Section */}
-      <div className="flex flex-col items-center gap-2">
-        <img
-          className="w-[100px] h-[100px] rounded-full object-cover"
-          src="../../images/openToWork.avif"
-          alt="Profile"
-        />
-        <div className="border-2 border-[#915eff] py-1 px-4 rounded-md flex items-center gap-2">
-          <span className="relative flex h-3 w-3">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-3 w-3 bg-[#915eff]"></span>
-          </span>
-          <button className="text-sm font-medium text-[#915eff]">Open for Work</button>
-        </div>
-      </div>
     </div>
+
   );
 }
 
@@ -135,7 +120,7 @@ export function SocialLinks() {
   ];
 
   return (
-    <div className="flex flex-wrap gap-2 justify-start mt-4">
+    <div><div className="flex flex-wrap gap-2 justify-start mt-4">
       {links.map(({ href, icon, label }) => (
         <a
           key={href}
@@ -150,5 +135,20 @@ export function SocialLinks() {
         </a>
       ))}
     </div>
+    <div className="flex flex-col items-center gap-2">
+        <img
+          className="w-[100px] h-[100px] rounded-full object-cover"
+          src="/openToWork.png"
+          alt="Profile"
+        />
+        <div className="border-2 border-[#915eff] py-1 px-4 rounded-md flex items-center gap-2">
+          <span className="relative flex h-3 w-3">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-3 w-3 bg-[#915eff]"></span>
+          </span>
+          <button className="text-sm font-medium text-[#915eff]">Open for Work</button>
+        </div>
+      </div>
+      </div>
   );
 }
