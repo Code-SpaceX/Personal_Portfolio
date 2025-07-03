@@ -1,19 +1,22 @@
 import React from 'react';
-import { FileText, Mail, Phone, MapPin, Github, Linkedin, Instagram } from 'lucide-react';
+import {
+  FileText,
+  Mail,
+  Phone,
+  MapPin,
+  Github,
+  Linkedin,
+  Instagram,
+} from 'lucide-react';
 import { FaWhatsapp } from 'react-icons/fa6';
 import { SiLeetcode } from 'react-icons/si';
 
-// 🔗 Reusable Internal Link Component
-export const Link = ({ href, className, children }) => (
-  <a href={href} className={className}>
-    {children}
-  </a>
-);
-
+ 
 // 📄 Resume & Contact Buttons
 export function ActionButtons() {
   return (
     <div className="flex flex-wrap gap-4 justify-start">
+      {/* Resume Button */}
       <a
         href="/assets/Khushi_Tyagi_Resume.pdf"
         className="flex items-center gap-2 px-3 py-2 rounded-md text-sm sm:text-base bg-blue-600 text-white hover:bg-blue-700 transition-transform duration-300 transform hover:scale-105"
@@ -23,22 +26,42 @@ export function ActionButtons() {
         <FileText className="w-5 h-5" />
         <span>View Resume</span>
       </a>
-      <Link
-        href="#contact"
-        className="flex items-center gap-2 px-3 py-2 rounded-md text-sm sm:text-base text-blue-600 dark:text-blue-400 border-2 border-blue-600 transition-transform duration-300 transform hover:scale-105"
-      >
-        <Mail className="w-5 h-5" />
-        <span>Contact Me</span>
-      </Link>
+
+      {/* Contact Button */}
+      <a
+  href="#contact"
+  className="flex items-center gap-2 px-3 py-2 rounded-md text-sm sm:text-base text-blue-600 dark:text-blue-400 border-2 border-blue-600 transition-transform duration-300 transform hover:scale-105"
+>
+  <Mail className="w-5 h-5" />
+  <span>Contact Me</span>
+</a>
+
+      {/* Uttarakhand Project Button */}
       <a
         href="https://uttarakhand-culture.vercel.app/"
         className="flex items-center gap-2 px-3 py-2 rounded-md text-sm sm:text-base bg-blue-600 text-white hover:bg-blue-700 transition-transform duration-300 transform hover:scale-105"
         target="_blank"
         rel="noopener noreferrer"
       >
-        <FileText className="w-2 h-2" />
-        <span>Uttarakhand :</span>
+        <FileText className="w-5 h-5" />
+        <span>Uttarakhand</span>
       </a>
+
+      {/* "Open for Work" Badge Section */}
+      <div className="flex flex-col items-center gap-2">
+        <img
+          className="w-[100px] h-[100px] rounded-full object-cover"
+          src="../../images/openToWork.avif"
+          alt="Profile"
+        />
+        <div className="border-2 border-[#915eff] py-1 px-4 rounded-md flex items-center gap-2">
+          <span className="relative flex h-3 w-3">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-3 w-3 bg-[#915eff]"></span>
+          </span>
+          <button className="text-sm font-medium text-[#915eff]">Open for Work</button>
+        </div>
+      </div>
     </div>
   );
 }

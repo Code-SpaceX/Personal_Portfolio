@@ -15,6 +15,7 @@ import Typewriter from "typewriter-effect";
 import { Bio } from "../../data/constants";
 import HeroSectionVideo from './HeroSectionVideo.jsx';
 import { ActionButtons, ContactInfo, SocialLinks } from './Bio.jsx';
+import { FitScreen } from "@mui/icons-material";
 
 const glassStyle = {
   background: "rgba(255, 255, 255, 0.15)", // translucent white
@@ -32,7 +33,7 @@ const HeroSection = () => {
     <div id="about" style={{ position: "relative", overflow: "hidden" }}>
       <HeroContainer>
         <HeroBg>
-          <HeroSectionVideo />
+          {/* <HeroSectionVideo /> */}
         </HeroBg>
 
         <HeroInnerContainer style={{ gap: "3rem" }}>
@@ -78,9 +79,9 @@ const HeroSection = () => {
               src={HeroImg}
               alt="profile"
               style={{
-                borderRadius: "50%",
-                width: "200px",
-                height: "200px",
+                borderRadius: FitScreen ? "10%": "16%",
+                width: "500px",
+                height: "220px",
                 objectFit: "cover",
                 boxShadow: "0 8px 20px rgba(0,0,0,0.2)",
               }}
