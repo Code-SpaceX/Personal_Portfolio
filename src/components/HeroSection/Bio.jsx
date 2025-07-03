@@ -120,7 +120,7 @@ export function SocialLinks() {
   ];
 
   return (
-    <div><div className="flex flex-wrap gap-2 justify-start mt-4">
+    <div className="flex flex-wrap gap-2 justify-start mt-4">
       {links.map(({ href, icon, label }) => (
         <a
           key={href}
@@ -135,20 +135,6 @@ export function SocialLinks() {
         </a>
       ))}
     </div>
-    <div className="flex flex-col items-center gap-2">
-        <img
-          className="w-[100px] h-[100px] rounded-full object-cover"
-          src="/openToWork.png"
-          alt="Profile"
-        />
-        <div className="border-2 border-[#915eff] py-1 px-4 rounded-md flex items-center gap-2">
-          <span className="relative flex h-3 w-3">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-3 w-3 bg-[#915eff]"></span>
-          </span>
-          <button className="text-sm font-medium text-[#915eff]">Open for Work</button>
-        </div>
-      </div>
-      </div>
+  
   );
 }
