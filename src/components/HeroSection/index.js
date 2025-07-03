@@ -17,13 +17,14 @@ import { ActionButtons, ContactInfo, SocialLinks } from './Bio.jsx';
 import openToWork from '../../images/openToWork.png'; 
 import openToWorkAlt from '../../images/HeroImage.jpg'; 
 import PopupProfileCard from "../../components/ProfileCard/PopupProfileCard.jsx";
+import LinktreeOne from "../LinktreeCard/LinktreeOne.jsx";
 
 const glassStyle = {
-  background: "rgba(207, 206, 206, 0.1)",
+  background: "rgba(132, 119, 119, 0.09)",
   borderRadius: "16px",
-  boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.37)",
-  backdropFilter: "blur(10px)",
-  WebkitBackdropFilter: "blur(10px)",
+  boxShadow: "0 8px 32px 0 rgba(197, 128, 19, 0.37)",
+  backdropFilter: "blur(60px)",
+  WebkitBackdropFilter: "blur(70px)",
   border: "1px solid rgba(255, 255, 255, 0.18)",
   color: "#fff",
   padding: "2rem",
@@ -116,29 +117,21 @@ const HeroSection = () => {
           </HeroLeftContainer>
 
           <HeroRightContainer
-            id="Right"
-            style={{
-              ...glassStyle,
-              padding: "1rem",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              width: "220px",
-              height: "220px",
-            }}
-          >
-            <Img
-              src={HeroImg}
-              alt="profile"
-              style={{
-                borderRadius: "16%",
-                width: "500px",
-                height: "220px",
-                objectFit: "cover",
-                boxShadow: "0 8px 20px rgba(0,0,0,0.2)",
-              }}
-            />
-          </HeroRightContainer>
+  id="Right"
+  style={{
+    ...glassStyle,
+    padding: "0rem",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    width: "420px",
+    height: "520px",
+  }}
+>
+  <LinktreeOne />
+</HeroRightContainer>
+
+          
         </HeroInnerContainer>
       </HeroContainer>
     </div>
