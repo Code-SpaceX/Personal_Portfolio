@@ -16,7 +16,7 @@ const education = [
     id: 1,
     title: "Frontend Developer",
     desc: "Worked on modern UI/UX design systems and responsive applications.",
-    thumbnail: "/images/company1.png",
+    thumbnail: "../",
   },
   {
     id: 2,

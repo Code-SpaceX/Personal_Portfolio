@@ -1,5 +1,3 @@
-// ✅ LinktreeOne.jsx (Updated with popup logic, glassmorphism effect + custom ping ball with time-based online/offline status)
-
 import React, { useState, useEffect, useRef } from "react";
 import {
   Github,
@@ -119,20 +117,26 @@ export default function LinktreeOne() {
           style={{ backgroundImage: `url(${heroImage})` }}
         ></div>
 
-        {/* Profile Image with custom ping */}
+        {/* Profile Image with hover effect and ping */}
         <div className="relative -top-10 z-10">
           <div
-            className="w-24 h-24 rounded-full border-4 border-white dark:border-gray-800 object-cover shadow-lg cursor-pointer relative"
-            style={{
-              backgroundImage: `url(${openToWork})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              backgroundRepeat: "no-repeat",
-            }}
             onClick={() => setShowPopup(true)}
+            className="group w-24 h-24 relative cursor-pointer transition-transform duration-300 ease-in-out hover:scale-110"
           >
+            <div
+              className="w-full h-full rounded-full border-4 border-white dark:border-gray-800 shadow-lg transform transition duration-300 ease-in-out group-hover:shadow-2xl group-hover:scale-105"
+              style={{
+                backgroundImage: `url(${openToWork})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
+              }}
+            ></div>
+
             {/* Ping and label */}
-            <div className={`absolute bottom-0 -right-10 flex items-center gap-1 px-1.5 py-0.5 rounded-full shadow-md ${isOnline ? "bg-green-100 dark:bg-green-800" : "bg-red-100 dark:bg-red-800"}`}>
+            <div className={`absolute bottom-0 -right-10 flex items-center gap-1 px-1.5 py-0.5 rounded-full shadow-md ${
+              isOnline ? "bg-green-100 dark:bg-green-800" : "bg-red-100 dark:bg-red-800"
+            }`}>
               <span className={`relative block w-2.5 h-2.5 rounded-full ${isOnline ? "bg-green-500" : "bg-red-500"}`}>
                 <span className={`absolute inline-flex h-full w-full rounded-full ${isOnline ? "bg-green-400" : "bg-red-400"} opacity-75 animate-ping`}></span>
               </span>
