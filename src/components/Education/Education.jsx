@@ -10,6 +10,7 @@ import {
 import { cn } from "../../utils/cn"; 
 
 // Replace this with your actual data or import from "@/data"
+
 const education = [
   {
     id: 1,

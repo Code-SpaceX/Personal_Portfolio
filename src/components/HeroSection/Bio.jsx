@@ -6,7 +6,7 @@ import {
   MapPin,
   Github,
   Linkedin,
-  Instagram,
+
 } from 'lucide-react';
 import { FaWhatsapp } from 'react-icons/fa6';
 import { SiLeetcode } from 'react-icons/si';
@@ -18,7 +18,7 @@ export function ActionButtons() {
       <div className="flex flex-wrap gap-4 justify-start">
       {/* Resume Button */}
       <a
-        href="/assets/Khushi_Tyagi_Resume.pdf"
+        href="../Assests/Atul oli_D.pdf"
         className="flex items-center gap-2 px-3 py-2 rounded-md text-sm sm:text-base bg-blue-600 text-white hover:bg-blue-700 transition-transform duration-300 transform hover:scale-105"
         target="_blank"
         rel="noopener noreferrer"
@@ -76,15 +76,15 @@ export function ContactInfo() {
     <div className="flex flex-col items-start gap-2 mt-4">
       <ContactItem
         icon={<Phone className="w-5 h-5" />}
-        text="+91 7082344109"
-        href="tel:+917082344109"
+        text="+91 7500980457"
+        href="tel:+917500980457"
       />
       <ContactItem
         icon={<Mail className="w-5 h-5" />}
-        text="tyagikhushi@gmail.com"
-        href="mailto:tyagikhushi161@gmail.com"
+        text="atuloli.27in.tech@gmail.com"
+        href="mailto:atuloli.27in.tech@gmail.com"
       />
-      <ContactItem icon={<MapPin className="w-5 h-5" />} text="Dehradun, India" />
+      <ContactItem icon={<MapPin className="w-5 h-5" />} text="Uttarakhand, Pithoragarh, India" />
     </div>
   );
 }
@@ -93,27 +93,22 @@ export function ContactInfo() {
 export function SocialLinks() {
   const links = [
     {
-      href: 'https://github.com/KHUSHITYAGII',
+      href: 'https://github.com/Atuloli01',
       icon: <Github className="w-6 h-6 text-gray-900 dark:text-white" />,
       label: 'GitHub',
     },
     {
-      href: 'https://www.linkedin.com/in/khushityagi0208/',
+      href: 'https://www.linkedin.com/in/atul-oli27-intech/',
       icon: <Linkedin className="w-6 h-6 text-[#0077B5]" />,
       label: 'LinkedIn',
     },
     {
-      href: 'https://instagram.com/khushityagi0208',
-      icon: <Instagram className="w-6 h-6 text-[#E1306C]" />,
-      label: 'Instagram',
-    },
-    {
-      href: 'https://wa.me/917082344109',
+      href: 'https://wa.me/7500980457',
       icon: <FaWhatsapp className="w-6 h-6 text-[#25D366]" />,
       label: 'WhatsApp',
     },
     {
-      href: 'https://leetcode.com/u/khushityagi0208/',
+      href: 'https://leetcode.com/u/soldieratul1234/',
       icon: <SiLeetcode className="w-6 h-6 text-gray-900 dark:text-white" />,
       label: 'Leetcode',
     },
