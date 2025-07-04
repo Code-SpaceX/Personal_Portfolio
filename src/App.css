@@ -11,14 +11,15 @@
     
 }
 
-html{
+html, body {
   scroll-behavior: smooth;
-}
-
-body{
-  margin: 0px !important;
+  margin: 0 !important;
   padding: 0;
+  width: 100%;
+  min-height: 100%;
   font-family: 'Montserrat', sans-serif;
+  box-sizing: border-box;
+  overflow-x: hidden; /* Prevent side scroll */
 }
 
 /* width */

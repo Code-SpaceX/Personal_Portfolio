@@ -3,20 +3,15 @@ import {
   HeroContainer,
   HeroBg,
   HeroLeftContainer,
-  Img,
   HeroRightContainer,
   HeroInnerContainer,
   TextLoop,
   Title,
   Span,
 } from "./HeroStyle";
-import HeroImg from "../../images/HeroImage.jpg";
 import Typewriter from "typewriter-effect";
 import { Bio } from "../../data/constants";
 import { ActionButtons, ContactInfo, SocialLinks } from './Bio.jsx';
-import openToWork from '../../images/openToWork.png'; 
-import openToWorkAlt from '../../images/HeroImage.jpg'; 
-import PopupProfileCard from "../../components/ProfileCard/PopupProfileCard.jsx";
 import LinktreeOne from "../LinktreeCard/LinktreeOne.jsx";
 
 const glassStyle = {
@@ -32,12 +27,14 @@ const glassStyle = {
 
 const HeroSection = () => {
   return (
-    <div id="about" style={{ position: "relative", overflow: "hidden" }}>
+    <div id="about" style={{ position: "relative", overflowX: "hidden" }}>
       <HeroContainer>
         <HeroBg>{/* Optional background video */}</HeroBg>
 
         <HeroInnerContainer style={{ gap: "3rem", position: 'relative' }}>
           <HeroLeftContainer id="Left" style={{ ...glassStyle, position: 'relative' }}>
+            {/* Removed profile image from here */}
+
             <button
               className="text-sm font-medium border rounded px-6 py-2 transition-colors duration-300"
               style={{
@@ -65,7 +62,7 @@ const HeroSection = () => {
               }}
               onMouseEnter={e => {
                 e.currentTarget.style.backgroundColor = 'rgba(0, 128, 0, 0.3)';
-                e.currentTarget.style.boxShadow = '0 6px 20px rgba(52, 25, 228, 0.9)';
+                e.currentTarget.style.boxShadow = '0 6px 20px rgba(234, 16, 19, 0.9)';
               }}
               onMouseLeave={e => {
                 e.currentTarget.style.backgroundColor = 'rgba(0, 128, 0, 0.1)';
@@ -106,32 +103,24 @@ const HeroSection = () => {
             <div className="flex items-center gap-4">
               <SocialLinks />
             </div>
-
-            <PopupProfileCard
-              originalImage={openToWork}
-              activeImage={openToWorkAlt}
-              imageSize={200}
-              hoverToOpen={false}
-              clickToOpen={true}
-            />
           </HeroLeftContainer>
 
           <HeroRightContainer
-  id="Right"
-  style={{
-    ...glassStyle,
-    padding: "0rem",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    width: "420px",
-    height: "520px",
-  }}
->
-  <LinktreeOne />
-</HeroRightContainer>
-
-          
+            id="Right"
+            style={{
+              ...glassStyle,
+              padding: "0rem",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              width: "420px",
+              height: "520px",
+              flexDirection: 'column',
+              gap: '1rem',
+            }}
+          >
+            <LinktreeOne />
+          </HeroRightContainer>
         </HeroInnerContainer>
       </HeroContainer>
     </div>

@@ -46,7 +46,7 @@ export const HeroInnerContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  max-width: 1100px;
+  max-width: 1130px;
 
   @media (max-width: 960px) {
     flex-direction: column;
@@ -56,7 +56,7 @@ export const HeroInnerContainer = styled.div`
 export const HeroLeftContainer = styled.div`
   width: 100%;
   order: 1;
-  @media (max-width: 960px) {
+  @media (max-width: 990px) {
     order: 2;
     margin-bottom: 30px;
     display: flex;
