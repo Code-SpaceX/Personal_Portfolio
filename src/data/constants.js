@@ -346,7 +346,7 @@ export const projects = [
         github: "https://github.com/mohitrawat061",
       },
       {
-        name: "Abhay Joshi",
+        name: "Atul Oli",
         img: "https://avatars.githubusercontent.com/u/105213625?v=4",
         linkedin: "https://www.linkedin.com/in/abhay-joshi-/",
         github: "https://github.com/abhayjoshi201",
@@ -393,7 +393,7 @@ export const projects = [
         github: "https://github.com/vinayRamola",
       },
       {
-        name: "Abhay Joshi",
+        name: "Atul Oli",
         img: "https://avatars.githubusercontent.com/u/105213625?v=4",
         linkedin: "https://www.linkedin.com/in/abhay-joshi-/",
         github: "https://github.com/abhayjoshi201",
