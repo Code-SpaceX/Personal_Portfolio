@@ -24,7 +24,7 @@ const education = [
     desc: "Built REST APIs and managed databases.",
     thumbnail: "/images/company2.png",
   },
-  // Add more items if needed
+  
 ];
 
 const Education = () => {

@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import {educationData} from "../Education/EducationData"
+
 const Document = styled.img`
     display: none;
     height: 70px;
@@ -128,7 +128,7 @@ const Grade = styled.div`
 
 
 
-const EducationCard = ({ educationData }) => {
+const EducationCard = ({ education }) => {
     return (
         <Card>
             <Top>
