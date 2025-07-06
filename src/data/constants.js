@@ -214,7 +214,7 @@ export const experiences = [
     date: "Jan 2024 - Jan 2025",
     desc: "Gained hands-on experience with in frontend Development, API development, Dynmanic Data sharing.",
     skills: ["React", "NodeJS", "ExpressJS", "MongoDB"],
-    //doc: "",
+    doc: "",
   },
   
   // {

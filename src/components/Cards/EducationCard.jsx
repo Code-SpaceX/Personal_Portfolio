@@ -75,6 +75,7 @@ const Top = styled.div`
 
 const Image = styled.img`
     height: 50px;
+    width: 50px;
     background-color: #000;
     border-radius: 10px;
     margin-top: 4px;
@@ -132,7 +133,8 @@ const EducationCard = ({ education }) => {
     return (
         <Card>
             <Top>
-                <Image src={education.img} />
+                <Image src={education.img} alt={education.school} />
+
                 <Body>
                     <Name>{education.school}</Name>
                     <Degree>{education.degree}</Degree>
