@@ -11,10 +11,10 @@ import { cn } from "../../utils/cn";
 
 // Replace this with your actual data or import from "@/data"
 
-const education = [
+const education1 = [
   {
     id: 1,
-    title: "Frontend Developer",
+    title: "Graphic Era Hill University, Bhimtal",
     desc: "Worked on modern UI/UX design systems and responsive applications.",
     thumbnail: "../",
   },
@@ -27,7 +27,7 @@ const education = [
   
 ];
 
-const Education = () => {
+const Education1 = () => {
   return (
     <div className="py-20 w-full" id="experience">
       <h1 className="heading text-white">
@@ -35,7 +35,7 @@ const Education = () => {
       </h1>
 
       <div className="w-full mt-12 grid lg:grid-cols-4 grid-cols-1 gap-10">
-        {education.map((card) => (
+        {education1.map((card) => (
           <Button
             key={card.id}
             borderRadius="1.75rem"
@@ -175,4 +175,4 @@ const MovingBorder = ({ children, duration = 2000, rx, ry, ...otherProps }) => {
   );
 };
 
-export default Education;
+export default Education1;

@@ -12,7 +12,9 @@ import Projects from "./components/Projects";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import Experience from "./components/Experience";
-import Education from "./components/Education/Education.jsx";
+import Education1 from "./components/Education/Education1.jsx";
+import Education from "./components/Education/index.js";
+
 import ProjectDetails from "./components/ProjectDetails";
 import styled from "styled-components";
 import InfiniteScrollText from "./components/HorizontalTextScroll/InfiniteScrollText.jsx";
@@ -70,7 +72,8 @@ function App() {
           <Wrapper>
             <InfiniteScrollText />
             <Skills />
-            <Education />
+            <Education1 />
+            <Education/>
             <Experience />
           </Wrapper>
           <Projects openModal={openModal} setOpenModal={setOpenModal} />
