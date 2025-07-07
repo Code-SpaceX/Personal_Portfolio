@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import {
   motion,
   useAnimationFrame,
@@ -25,6 +25,20 @@ const education1 = [
 ];
 
 const Education1 = () => {
+  const pathRef = useRef(null);
+  const progress = useMotionValue(0);
+  const duration = 15000; // Shared duration in milliseconds
+
+  // Shared animation frame
+  useAnimationFrame((time) => {
+    const length = pathRef.current?.getTotalLength();
+    if (length) {
+      const pxPerMillisecond = length / duration;
+      const newProgress = (time * pxPerMillisecond) % length;
+      progress.set(newProgress);
+    }
+  });
+
   return (
     <div className="py-20 w-full" id="experience">
       <div className="max-w-7xl mx-auto px-4 text-center">
@@ -40,7 +54,8 @@ const Education1 = () => {
             title={card.title}
             desc={card.desc}
             thumbnail={card.thumbnail}
-            duration={Math.floor(Math.random() * 10000) + 10000}
+            progress={progress}
+            pathRef={pathRef}
           />
         ))}
       </div>
@@ -48,44 +63,9 @@ const Education1 = () => {
   );
 };
 
-const CardItem = ({ title, desc, thumbnail, duration }) => {
-  const [ballOpacity, setBallOpacity] = useState(1);
-
-  const handleProgress = (progressPercent) => {
-    // Corners at 0%, 25%, 50%, 75%
-    const corners = [0, 0.25, 0.5, 0.75];
-    // Smaller tolerance for tighter fade near corners
-    const tolerance = 0.0; 
-
-    const p = progressPercent % 1;
-
-    // Determine opacity based on distance to nearest corner
-    let opacity = 1;
-
-    for (const corner of corners) {
-      // Distance normalized considering wrap-around (circle)
-      const dist = Math.min(
-        Math.abs(p - corner),
-        Math.abs(p - corner + 1),
-        Math.abs(p - corner - 1)
-      );
-      if (dist < tolerance) {
-        // Smooth fade: opacity goes from 1 at tolerance edge to 0 at center (corner)
-        opacity = Math.min(opacity, dist / tolerance);
-      }
-    }
-
-    setBallOpacity(opacity);
-  };
-
+const CardItem = ({ title, desc, thumbnail, progress, pathRef }) => {
   return (
-    <Button
-      borderRadius="1.75rem"
-      duration={duration}
-      className="flex-1"
-      ballOpacity={ballOpacity}
-      onProgress={handleProgress}
-    >
+    <Button borderRadius="1.75rem" progress={progress} pathRef={pathRef}>
       <div className="flex lg:flex-row flex-col lg:items-center p-3 py-6 md:p-5 lg:p-10 gap-4">
         <img
           src={thumbnail}
@@ -108,40 +88,26 @@ const CardItem = ({ title, desc, thumbnail, duration }) => {
 const Button = ({
   borderRadius = "1.75rem",
   children,
-  as: Component = "button",
-  containerClassName,
-  borderClassName,
-  duration,
   className,
-  ballOpacity = 1,
-  onProgress,
+  progress,
+  pathRef,
   ...otherProps
 }) => {
   return (
-    <Component
+    <button
       className={cn(
-        "bg-transparent relative text-xl p-[1px] overflow-hidden md:col-span-2 md:row-span-1",
-        containerClassName
+        "bg-transparent relative text-xl p-[1px] overflow-hidden md:col-span-2 md:row-span-1"
       )}
-      style={{
-        borderRadius: borderRadius,
-      }}
+      style={{ borderRadius }}
       {...otherProps}
     >
       <div
         className="absolute inset-0 rounded-[1.75rem]"
         style={{ borderRadius: `calc(${borderRadius} * 0.96)` }}
       >
-        <MovingBorder duration={duration} rx="30%" ry="30%" onProgress={onProgress}>
+        <MovingBorder progress={progress} rx="30%" ry="30%" pathRef={pathRef}>
           <motion.div
-            style={{
-              opacity: ballOpacity,
-              transition: "opacity 0.15s ease",
-            }}
-            className={cn(
-              "h-20 w-20 bg-[radial-gradient(#CBACF9_40%,transparent_60%)]",
-              borderClassName
-            )}
+            className="h-20 w-20 bg-[radial-gradient(#CBACF9_40%,transparent_60%)]"
           />
         </MovingBorder>
       </div>
@@ -151,38 +117,20 @@ const Button = ({
           "relative bg-slate-900/[0.] border border-slate-800 backdrop-blur-xl text-white flex items-center justify-center w-full h-full text-sm antialiased",
           className
         )}
-        style={{
-          borderRadius: `calc(${borderRadius} * 0.96)`,
-        }}
+        style={{ borderRadius: `calc(${borderRadius} * 0.96)` }}
       >
         {children}
       </div>
-    </Component>
+    </button>
   );
 };
 
-const MovingBorder = ({ children, duration = 2000, rx, ry, onProgress, ...otherProps }) => {
-  const pathRef = useRef();
-  const progress = useMotionValue(0);
-
-  useAnimationFrame((time) => {
-    const length = pathRef.current?.getTotalLength();
-    if (length) {
-      const pxPerMillisecond = length / duration;
-      const newProgress = (time * pxPerMillisecond) % length;
-      progress.set(newProgress);
-
-      if (onProgress) {
-        onProgress(newProgress / length);
-      }
-    }
-  });
-
+const MovingBorder = ({ children, progress, rx, ry, pathRef }) => {
   const x = useTransform(progress, (val) =>
-    pathRef.current?.getPointAtLength(val).x
+    pathRef.current?.getPointAtLength(val)?.x
   );
   const y = useTransform(progress, (val) =>
-    pathRef.current?.getPointAtLength(val).y
+    pathRef.current?.getPointAtLength(val)?.y
   );
 
   const transform = useMotionTemplate`translateX(${x}px) translateY(${y}px) translateX(-50%) translateY(-50%)`;
@@ -195,9 +143,15 @@ const MovingBorder = ({ children, duration = 2000, rx, ry, onProgress, ...otherP
         className="absolute h-full w-full"
         width="100%"
         height="100%"
-        {...otherProps}
       >
-        <rect fill="none" width="100%" height="100%" rx={rx} ry={ry} ref={pathRef} />
+        <rect
+          fill="none"
+          width="100%"
+          height="100%"
+          rx={rx}
+          ry={ry}
+          ref={pathRef}
+        />
       </svg>
       <motion.div
         style={{

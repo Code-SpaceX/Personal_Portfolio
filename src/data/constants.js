@@ -270,10 +270,10 @@ export const education = [
 export const projects = [
   {
     id: 11,
-    title: "NewsHub",
-    //date: "Jan 2024 - Dec 2023",
+    title: "ELearning Management System-AI",
+    //date: "Jan 2024 - Dec 2024",
     description:
-      "Developed a real-time Android news application with real-time updates. Implemented filtering options and search functionality for customized news exploration. Has a user-friendly bookmarking feature, allowing users to save articles",
+      "Developed a real-time Course watch and course create application with real-time updates. Implemented filtering options and search functionality for customizedexploration. Has a user-friendly bookmarking feature, allowing users to save articles",
     image:
       "https://private-user-images.githubusercontent.com/105213625/303751192-4b2cbe5d-fbc5-4123-9712-af6e52b63f24.jpg?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MDc1MDYyNTIsIm5iZiI6MTcwNzUwNTk1MiwicGF0aCI6Ii8xMDUyMTM2MjUvMzAzNzUxMTkyLTRiMmNiZTVkLWZiYzUtNDEyMy05NzEyLWFmNmU1MmI2M2YyNC5qcGc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwMjA5JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDIwOVQxOTEyMzJaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1iMWRhMjk5MWRjYmIyMzY1NWZjYTU2ZGZmOWU4OGFlZjI0NDE2NTA5MDhjODRkZDczNzgzZTA2MDhlMGE5OWJhJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.L4IoVMnib_c1MTxvl283sHGPODlY8dyuYdFezj-SuK0",
     tags: ["Kotlin", "Retrofit", "Room", "Gson"],
