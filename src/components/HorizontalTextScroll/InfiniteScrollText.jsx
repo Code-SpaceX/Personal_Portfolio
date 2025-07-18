@@ -6,7 +6,7 @@ const InfiniteScrollText = () => {
     'Check out the latest features!',
     'Contact us anytime.',
     'Special discounts available now!',
-    'Shop our latest collection.',
+    'Latest component Design.',
   ];
 
   const speed = 10;

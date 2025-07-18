@@ -18,7 +18,7 @@ export function ActionButtons() {
       <div className="flex flex-wrap gap-4 justify-start">
       {/* Resume Button */}
       <a
-        href="../Assests/Atul oli_D.pdf"
+        href="/Atul_OfCampus.pdf" // File should be in 'public' folder
         className="flex items-center gap-2 px-3 py-2 rounded-md text-sm sm:text-base bg-blue-600 text-white hover:bg-blue-700 transition-transform duration-300 transform hover:scale-105"
         target="_blank"
         rel="noopener noreferrer"
@@ -29,12 +29,12 @@ export function ActionButtons() {
 
       {/* Contact Button */}
       <a
-  href="#contact"
-  className="flex items-center gap-2 px-3 py-2 rounded-md text-sm sm:text-base text-blue-600 dark:text-blue-400 border-2 border-blue-600 transition-transform duration-300 transform hover:scale-105"
->
-  <Mail className="w-5 h-5" />
-  <span>Contact Me</span>
-</a>
+        href="mailto:atuloli.27in.tech@gmail.com" 
+        className="flex items-center gap-2 px-3 py-2 rounded-md text-sm sm:text-base text-blue-600 dark:text-blue-400 border-2 border-blue-600 transition-transform duration-300 transform hover:scale-105"
+      >
+        <Mail className="w-5 h-5" />
+        <span>Contact Me</span>
+      </a>
 
       {/* Uttarakhand Project Button */}
       <a
