@@ -12,15 +12,15 @@ import { cn } from "../../utils/cn";
 const education1 = [
   {
     id: 1,
-    title: "Graphic Era Hill University, Bhimtal",
-    desc: "Worked on modern UI/UX design systems and responsive applications.",
-    thumbnail: "/images/company1.png",
+    title: "Electronic and Mechanical Engineering",
+    desc: "Work on modern UI/UX design to look futuristic design for systems.",
+    thumbnail: "",
   },
   {
     id: 2,
-    title: "Backend Developer",
-    desc: "Built REST APIs and managed databases.",
-    thumbnail: "/images/company2.png",
+    title: "Future of Real AI and ML",
+    desc: "Built APIs and managed databases from scratch to integrate well with humans.",
+    thumbnail: "",
   },
 ];
 

@@ -21,6 +21,7 @@ import { FaBars, FaHome, FaProjectDiagram, FaArrowUp, FaSun, FaMoon } from 'reac
 import { Bio } from '../../data/constants';
 import { useTheme } from 'styled-components';
 import styled from 'styled-components';
+import GlassEffectNotify from '../Notification/GlassEffectNotify';
 
 const BottomNav = styled.div`
   position: fixed;
@@ -103,6 +104,7 @@ const Navbar = ({ toggleTheme }) => {
 
   return (
     <>
+    <GlassEffectNotify />
       <Nav shrink={shrink}>
         <NavbarContainer>
           <NavLogo to='/' shrink={shrink}>

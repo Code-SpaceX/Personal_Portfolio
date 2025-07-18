@@ -271,33 +271,33 @@ export const projects = [
   {
     id: 11,
     title: "ELearning Management System-AI",
-    //date: "Jan 2024 - Dec 2024",
+    date: "August 2024 - April 2025",
     description:
       "Developed a real-time Course watch and course create application with real-time updates. Implemented filtering options and search functionality for customizedexploration. Has a user-friendly bookmarking feature, allowing users to save articles",
     image:
       "https://private-user-images.githubusercontent.com/105213625/303751192-4b2cbe5d-fbc5-4123-9712-af6e52b63f24.jpg?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MDc1MDYyNTIsIm5iZiI6MTcwNzUwNTk1MiwicGF0aCI6Ii8xMDUyMTM2MjUvMzAzNzUxMTkyLTRiMmNiZTVkLWZiYzUtNDEyMy05NzEyLWFmNmU1MmI2M2YyNC5qcGc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwMjA5JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDIwOVQxOTEyMzJaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1iMWRhMjk5MWRjYmIyMzY1NWZjYTU2ZGZmOWU4OGFlZjI0NDE2NTA5MDhjODRkZDczNzgzZTA2MDhlMGE5OWJhJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.L4IoVMnib_c1MTxvl283sHGPODlY8dyuYdFezj-SuK0",
-    tags: ["Kotlin", "Retrofit", "Room", "Gson"],
+    tags: ["ReactJS", "NodeJS", "ExpressJS", "MongoDB / SQL"],
     category: "android app",
-    github: "https://github.com/abhayjoshi201/NewsApp",
-    webapp: "https://github.com/abhayjoshi201/NewsApp",
+    github: "https://github.com/Atuloli01/E-learning-Sharing-MS",
+    webapp: "https://github.com/Atuloli01/E-learning-Sharing-MS",
   },
   {
     id: 9,
-    title: "Detectify",
-    //date: "Jun 2023 - Jul 2023",
+    title: "Real TIme Attendance Management System-AWS",
+    date: "October 2023 - April 2024",
     description:
-      "Android Application for Image & Text Detection & Sound Recognition.Integrated real-time image classification, audio processing & text analysis offering instant feedback using Machine Learning models. Used Google CodeLabs for making Machine Learning Models",
+      "WEB Application for Image & Text Detection & Sound Recognition.Integrated real-time image classification, audio processing & text analysis offering instant feedback using Machine Learning models. Used Google CodeLabs for making Machine Learning Models",
     image:
       "https://private-user-images.githubusercontent.com/105213625/303758978-b39c17bb-2198-4f69-b32a-f4973fb3d58a.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MDc1MDgwNTksIm5iZiI6MTcwNzUwNzc1OSwicGF0aCI6Ii8xMDUyMTM2MjUvMzAzNzU4OTc4LWIzOWMxN2JiLTIxOTgtNGY2OS1iMzJhLWY0OTczZmIzZDU4YS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwMjA5JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDIwOVQxOTQyMzlaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT03N2ZlYjk5MDEzMGM0NWRjNjM0MjBmZTkyN2ZkY2UyMTVjNDNkOGJmNzMwODJiYzI0MmUyZGU4N2Y5MWNmOTdiJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.tsNB7dMEsJwmXTpnsn7lmFJyojuKzWr-Z6mj4EUAKIU",
-    tags: ["Java ", "TensorFlow Lite", "Machine Learning"],
+    tags: ["ReactJS","Python ", "API management", "AWS"],
     category: "machine learning",
-    github: "https://github.com/abhayjoshi201/ML-app",
-    webapp: "https://github.com/abhayjoshi201/ML-app",
+    github: "https://github.com/27-Atul-PahadiCoder/Smart-Attendance-System",
+    webapp: "https://github.com/27-Atul-PahadiCoder/Smart-Attendance-System",
   },
   {
     id: 0,
     title: "DevBhoomi Tourism Website",
-    //date: "Apr 2023 - May 2023",
+    date: "Apr 2024 - Present",
     description:
       "Developed a full-stack web application that allows users to search for, play, and pause their favorite podcasts on demand and create podcasts. Implemented user authentication using Google Auth and Jwt Auth, made responsive user interface with React JS that provides users with a seamless experience across all devices. Practiced agile methodologies to optimize team efficiency and communication.",
     image:
@@ -336,10 +336,10 @@ export const projects = [
   },
   {
     id: 1,
-    title: "FamPay Clone",
-    //date: "Oct 2022 - Jan 2023",
+    title: "Agents Development",
+    date: "May 2025 - Present",
     description:
-      "Designed and developed a Fampay Clone, A simple & elegant online payment web app for the youth.",
+      "Designed and developed a Agentic SAAS product, A simple & elegant web app for the Automatic tasks.",
     image:
       "https://user-images.githubusercontent.com/64485885/234916413-96296f13-fe4b-4cc4-b215-e72bd7c27928.png",
     tags: [
