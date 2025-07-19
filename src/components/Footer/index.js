@@ -4,7 +4,7 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import { Bio } from '../../data/constants';
-import { ListItemIcon } from '@mui/material';
+// import { ListItemIcon } from '@mui/material';
 
 const FooterContainer = styled.div`
   width: 100%;

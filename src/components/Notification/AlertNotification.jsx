@@ -12,8 +12,8 @@ const AlertNotification = () => {
 
     // Show second notification 1 second after first notification
     const secondTimer = setTimeout(() => {
-      showNotification("We hope you're enjoying your journey here! 🌟");
-    }, 11700);
+      showNotification("We hope you're enjoying here! 🌟");
+    }, 12000);
 
     return () => {
       clearTimeout(firstTimer);
