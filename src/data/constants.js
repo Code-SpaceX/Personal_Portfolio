@@ -275,7 +275,7 @@ export const projects = [
     description:
       "Developed a real-time Course watch and course create application with real-time updates. Implemented filtering options and search functionality for customizedexploration. Has a user-friendly bookmarking feature, allowing users to save articles",
     image:
-      "https://private-user-images.githubusercontent.com/105213625/303751192-4b2cbe5d-fbc5-4123-9712-af6e52b63f24.jpg?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MDc1MDYyNTIsIm5iZiI6MTcwNzUwNTk1MiwicGF0aCI6Ii8xMDUyMTM2MjUvMzAzNzUxMTkyLTRiMmNiZTVkLWZiYzUtNDEyMy05NzEyLWFmNmU1MmI2M2YyNC5qcGc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwMjA5JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDIwOVQxOTEyMzJaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1iMWRhMjk5MWRjYmIyMzY1NWZjYTU2ZGZmOWU4OGFlZjI0NDE2NTA5MDhjODRkZDczNzgzZTA2MDhlMGE5OWJhJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.L4IoVMnib_c1MTxvl283sHGPODlY8dyuYdFezj-SuK0",
+      "https://github.com/27-Atul-PahadiCoder/Personal_Portfolio/blob/main/images/p1.png?raw=true",
     tags: ["ReactJS", "NodeJS", "ExpressJS", "MongoDB / SQL"],
     category: "android app",
     github: "https://github.com/Atuloli01/E-learning-Sharing-MS",
@@ -288,7 +288,7 @@ export const projects = [
     description:
       "WEB Application for Image & Text Detection & Sound Recognition.Integrated real-time image classification, audio processing & text analysis offering instant feedback using Machine Learning models. Used Google CodeLabs for making Machine Learning Models",
     image:
-      "https://private-user-images.githubusercontent.com/105213625/303758978-b39c17bb-2198-4f69-b32a-f4973fb3d58a.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MDc1MDgwNTksIm5iZiI6MTcwNzUwNzc1OSwicGF0aCI6Ii8xMDUyMTM2MjUvMzAzNzU4OTc4LWIzOWMxN2JiLTIxOTgtNGY2OS1iMzJhLWY0OTczZmIzZDU4YS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwMjA5JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDIwOVQxOTQyMzlaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT03N2ZlYjk5MDEzMGM0NWRjNjM0MjBmZTkyN2ZkY2UyMTVjNDNkOGJmNzMwODJiYzI0MmUyZGU4N2Y5MWNmOTdiJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.tsNB7dMEsJwmXTpnsn7lmFJyojuKzWr-Z6mj4EUAKIU",
+      "https://github.com/27-Atul-PahadiCoder/Personal_Portfolio/blob/main/images/p2.png?raw=true",
     tags: ["ReactJS","Python ", "API management", "AWS"],
     category: "machine learning",
     github: "https://github.com/27-Atul-PahadiCoder/Smart-Attendance-System",
@@ -301,7 +301,7 @@ export const projects = [
     description:
       "Developed a full-stack web application that allows users to search for, play, and pause their favorite podcasts on demand and create podcasts. Implemented user authentication using Google Auth and Jwt Auth, made responsive user interface with React JS that provides users with a seamless experience across all devices. Practiced agile methodologies to optimize team efficiency and communication.",
     image:
-      "https://private-user-images.githubusercontent.com/105213625/303761341-5a478bf4-29af-4016-9cf9-9a8203213b12.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MDc1MDg5OTgsIm5iZiI6MTcwNzUwODY5OCwicGF0aCI6Ii8xMDUyMTM2MjUvMzAzNzYxMzQxLTVhNDc4YmY0LTI5YWYtNDAxNi05Y2Y5LTlhODIwMzIxM2IxMi5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwMjA5JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDIwOVQxOTU4MThaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT00NWFiYTY3OTI3N2M5MTc2OGI3NjA1ZjBkMTk1NWNiNTJlYWFhMzcyZDcwY2UzYzg1MzNhYmQwMWMxZTk4NGQzJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.bH-cpuuFGLrqgeepTqmDDjR6dPwvMsyE2wMm1DfD4UM",
+      "https://github.com/27-Atul-PahadiCoder/Personal_Portfolio/blob/main/images/p3.png?raw=true",
     tags: ["HTML", "CSS", "JavaScript", "MongoDb", "Node Js"],
     category: "web app",
     github: "https://github.com/abhayjoshi201/DevBhoomi-Tourism",
