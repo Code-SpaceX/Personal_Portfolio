@@ -22,6 +22,7 @@ import { Bio } from '../../data/constants';
 import { useTheme } from 'styled-components';
 import styled from 'styled-components';
 import GlassEffectNotify from '../Notification/GlassEffectNotify';
+import { Link as ScrollLink, animateScroll as scroll } from 'react-scroll';
 
 const BottomNav = styled.div`
   position: fixed;
@@ -117,13 +118,23 @@ const Navbar = ({ toggleTheme }) => {
           </MobileIcon>
 
           <NavItemsWrapper>
-            <NavItems>
-              <NavLink href="#about">About</NavLink>
-              <NavLink href="#skills">Skills</NavLink>
-              <NavLink href="#experience">Experience</NavLink>
-              <NavLink href="#projects">Projects</NavLink>
-              <NavLink href="#education">Education</NavLink>
-            </NavItems>
+           <NavItems>
+  <ScrollLink to="about" smooth={true} duration={600} offset={-60}>
+    <NavLink as="div">About</NavLink>
+  </ScrollLink>
+  <ScrollLink to="skills" smooth={true} duration={600} offset={-60}>
+    <NavLink as="div">Skills</NavLink>
+  </ScrollLink>
+  <ScrollLink to="experience" smooth={true} duration={600} offset={-60}>
+    <NavLink as="div">Experience</NavLink>
+  </ScrollLink>
+  <ScrollLink to="projects" smooth={true} duration={600} offset={-60}>
+    <NavLink as="div">Projects</NavLink>
+  </ScrollLink>
+  <ScrollLink to="education" smooth={true} duration={600} offset={-60}>
+    <NavLink as="div">Education</NavLink>
+  </ScrollLink>
+</NavItems>
           </NavItemsWrapper>
 
           <ButtonContainer>
