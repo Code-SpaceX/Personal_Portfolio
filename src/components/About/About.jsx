@@ -78,7 +78,7 @@ export default function About() {
         <div className="max-w-5xl mx-auto mb-16 text-center">
           <p className="text-base sm:text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
             Hey there! 👋 I'm <span className="text-blue-600 font-semibold">Atul Oli</span>,
-            a Full-Stack Developer and a pre-final-year Computer Science Engineering student.
+            a Full-Stack Developer and A Fresh Grads in  Jr. Developer in Tech.
             I love transforming ideas into scalable web applications and solving complex coding challenges.
             My journey in tech revolves around continuous learning, experimenting with new technologies, and building solutions that make an impact.
           </p>

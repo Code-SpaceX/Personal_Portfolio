@@ -14,7 +14,7 @@ import Footer from "./components/Footer";
 import Experience from "./components/Experience";
 import Education1 from "./components/Education/Education1.jsx";
 import Education from "./components/Education/index.js";
-
+import AlertNotification from "./components/Notification/AlertNotification.jsx"
 import ProjectDetails from "./components/ProjectDetails";
 import styled from "styled-components";
 import InfiniteScrollText from "./components/HorizontalTextScroll/InfiniteScrollText.jsx";
@@ -67,6 +67,7 @@ function App() {
       <Router>
         <Navbar toggleTheme={toggleTheme} />
         <Body>
+          <AlertNotification />
           <HeroSection />
           <About />
           <Wrapper>
