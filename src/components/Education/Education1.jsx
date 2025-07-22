@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import {
   motion,
   useAnimationFrame,
@@ -8,6 +8,7 @@ import {
   useTransform,
 } from "framer-motion";
 import { cn } from "../../utils/cn";
+import useIsMobile from "./useIsMobile"; 
 
 const education1 = [
   {
@@ -27,9 +28,8 @@ const education1 = [
 const Education1 = () => {
   const pathRef = useRef(null);
   const progress = useMotionValue(0);
-  const duration = 15000; // Shared duration in milliseconds
+  const duration = 15000;
 
-  // Shared animation frame
   useAnimationFrame((time) => {
     const length = pathRef.current?.getTotalLength();
     if (length) {
@@ -64,14 +64,24 @@ const Education1 = () => {
 };
 
 const CardItem = ({ title, desc, thumbnail, progress, pathRef }) => {
+  const [imageError, setImageError] = useState(false);
+  const isMobile = useIsMobile();
+
   return (
     <Button borderRadius="1.75rem" progress={progress} pathRef={pathRef}>
       <div className="flex lg:flex-row flex-col lg:items-center p-3 py-6 md:p-5 lg:p-10 gap-4">
-        <img
-          src={thumbnail}
-          alt={title}
-          className="lg:w-32 md:w-24 w-20 object-contain"
-        />
+        {!isMobile && (!imageError && thumbnail ? (
+          <img
+            src={thumbnail}
+            alt={title}
+            className="lg:w-32 md:w-24 w-20 object-contain"
+            onError={() => setImageError(true)}
+          />
+        ) : (
+          <div className="lg:w-32 md:w-24 w-20 h-20 flex items-center justify-center text-white bg-gray-700 rounded">
+            Hello
+          </div>
+        ))}
         <div className="lg:ms-5">
           <h1 className="text-start text-xl md:text-2xl font-bold text-gray-800 dark:text-white">
             {title}
@@ -106,9 +116,7 @@ const Button = ({
         style={{ borderRadius: `calc(${borderRadius} * 0.96)` }}
       >
         <MovingBorder progress={progress} rx="30%" ry="30%" pathRef={pathRef}>
-          <motion.div
-            className="h-20 w-20 bg-[radial-gradient(#CBACF9_40%,transparent_60%)]"
-          />
+          <motion.div className="h-20 w-20 bg-[radial-gradient(#CBACF9_40%,transparent_60%)]" />
         </MovingBorder>
       </div>
 
