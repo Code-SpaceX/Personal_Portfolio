@@ -18,6 +18,7 @@ import AlertNotification from "./components/Notification/AlertNotification.jsx"
 import ProjectDetails from "./components/ProjectDetails";
 import styled from "styled-components";
 import InfiniteScrollText from "./components/HorizontalTextScroll/InfiniteScrollText.jsx";
+import CountingCard from "./components/CountingCard/CountingCard.jsx";
 const Body = styled.div`
   background-color: ${({ theme }) => theme.bg};
   width: 100%;
@@ -70,6 +71,7 @@ function App() {
           <AlertNotification />
           <HeroSection />
           <About />
+          <CountingCard />
           <Wrapper>
             <InfiniteScrollText />
             <Skills />
