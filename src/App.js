@@ -19,6 +19,8 @@ import ProjectDetails from "./components/ProjectDetails";
 import styled from "styled-components";
 import InfiniteScrollText from "./components/HorizontalTextScroll/InfiniteScrollText.jsx";
 import CountingCard from "./components/CountingCard/CountingCard.jsx";
+import LiquidGlassComponents from './components/LiquidGlassComponent/LiquidGlassComponents.jsx';
+
 const Body = styled.div`
   background-color: ${({ theme }) => theme.bg};
   width: 100%;
@@ -71,7 +73,7 @@ function App() {
           <AlertNotification />
           <HeroSection />
           <About />
-          <CountingCard />
+          <CountingCard />  
           <Wrapper>
             <InfiniteScrollText />
             <Skills />

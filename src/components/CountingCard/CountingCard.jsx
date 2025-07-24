@@ -1,4 +1,5 @@
-// StatsSection.jsx
+// Filename: StatsSection.jsx
+
 import React, { useState } from "react";
 import CountUp from "react-countup";
 import { useInView } from "react-intersection-observer";
@@ -18,24 +19,22 @@ const CountingCard = () => {
     setMode((prev) => (prev === "light" ? "dark" : "light"));
   };
 
-  const { ref, inView } = useInView({ triggerOnce: true });
+  // 🔥 Trigger only when 50% of the section is visible
+  const { ref, inView } = useInView({
+    triggerOnce: true,
+    threshold: 1, // 90% of the component needs to be in view
+  });
 
   return (
-    <div className="py-10 px-4 md:px-20 transition-colors duration-300 bg-white dark:bg-gray-900 text-gray-800 dark:text-white">
+    <div
+      ref={ref}
+      className="py-10 px-4 md:px-20 transition-colors duration-300 bg-white dark:bg-gray-900 text-gray-800 dark:text-white"
+    >
       <div className="flex justify-between items-center mb-8">
         <h2 className="text-2xl font-bold">Our Achievements</h2>
-        <button
-          onClick={toggleMode}
-          className="px-4 py-2 rounded bg-blue-500 text-white dark:bg-yellow-500"
-        >
-          Toggle {mode === "light" ? "Dark" : "Light"} Mode
-        </button>
       </div>
 
-      <div
-        ref={ref}
-        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 text-center"
-      >
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 text-center">
         {stats.map((stat, index) => (
           <div
             key={index}
@@ -45,7 +44,7 @@ const CountingCard = () => {
               {inView ? (
                 <CountUp
                   end={stat.value}
-                  duration={2}
+                  duration={4}
                   suffix={stat.suffix}
                   separator=","
                 />
