@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 const InfiniteScrollText = () => {
   const texts = [
@@ -11,6 +11,22 @@ const InfiniteScrollText = () => {
 
   const speed = 10;
   const animationDuration = `${texts.length * speed}s`;
+
+  const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    const observer = new MutationObserver(() => {
+      const darkMode = document.documentElement.classList.contains('dark');
+      setIsDark(darkMode);
+    });
+
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+
+    // Initial check
+    setIsDark(document.documentElement.classList.contains('dark'));
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <>
@@ -25,7 +41,6 @@ const InfiniteScrollText = () => {
             margin: 20px auto;
             max-width: 100vw;
             user-select: none;
-            --bg-color: rgba(28,28,39,0.8);
           }
 
           .infinite-scroll-text-wrapper::before,
@@ -48,54 +63,31 @@ const InfiniteScrollText = () => {
             background: linear-gradient(to left, var(--bg-color), transparent);
           }
 
-          .infinite-scroll-text-wrapper .scroll-text {
+          .scroll-text {
             display: inline-block;
             white-space: nowrap;
             animation: scrollText ${animationDuration} linear infinite;
           }
 
-          .infinite-scroll-text-wrapper .scroll-text span {
+          .scroll-text span {
             display: inline-block;
             margin-right: 60px;
             font-weight: 600;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             user-select: none;
             font-size: 1.4rem;
+            color: var(--text-color);
           }
 
           @media (max-width: 768px) {
-            .infinite-scroll-text-wrapper .scroll-text span {
+            .scroll-text span {
               font-size: 1.1rem;
             }
           }
 
           @media (max-width: 480px) {
-            .infinite-scroll-text-wrapper .scroll-text span {
+            .scroll-text span {
               font-size: 0.9rem;
-            }
-          }
-
-          @media (prefers-color-scheme: dark) {
-            .infinite-scroll-text-wrapper {
-              background-color: rgba(28, 28, 39, 0.8);
-              color: rgba(255, 255, 255, 0.9);
-              box-shadow: 0 4px 15px rgba(133, 76, 230, 0.3);
-              --bg-color: rgba(28, 28, 39, 0.8);
-            }
-            .infinite-scroll-text-wrapper .scroll-text span {
-              color: rgba(255, 255, 255, 0.9);
-            }
-          }
-
-          @media (prefers-color-scheme: light) {
-            .infinite-scroll-text-wrapper {
-              background-color: rgba(255, 255, 255, 0.1);
-              color: rgba(128, 128, 128, 0.85);
-              box-shadow: 0 4px 15px rgba(190, 26, 219, 0.15);
-              --bg-color: rgba(255, 255, 255, 0.8);
-            }
-            .infinite-scroll-text-wrapper .scroll-text span {
-              color: rgba(17, 17, 17, 0.85);
             }
           }
 
@@ -106,7 +98,17 @@ const InfiniteScrollText = () => {
         `}
       </style>
 
-      <div className="infinite-scroll-text-wrapper">
+      <div
+        className="infinite-scroll-text-wrapper"
+        style={{
+          backgroundColor: isDark ? 'rgba(28, 28, 39, 0.8)' : 'rgba(255, 255, 255, 0.1)',
+          boxShadow: isDark
+            ? '0 4px 15px rgba(133, 76, 230, 0.3)'
+            : '0 4px 15px rgba(190, 26, 219, 0.15)',
+          '--bg-color': isDark ? 'rgba(28, 28, 39, 0.8)' : 'rgba(255, 255, 255, 0.1)',
+          '--text-color': isDark ? 'rgba(255, 255, 255, 0.9)' : 'rgba(17, 17, 17, 0.85)',
+        }}
+      >
         <div className="scroll-text">
           {[...texts, ...texts].map((text, i) => (
             <span key={i}>{text}</span>
