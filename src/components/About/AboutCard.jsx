@@ -60,15 +60,33 @@ const Chips = styled.div`
 `;
 
 const Chip = styled.span`
-  background: ${({ theme }) => theme.chipBg};
-  color: ${({ theme }) => theme.chipText};
+ background: ${({ variant, theme }) =>
+    variant === "blue"
+      ? "#edf4fe"
+      : variant === "purple"
+      ? "#ebebff"
+      : variant === "gold"
+      ? "#fdf6dd"
+      : theme.chipBg};
+  color: ${({ variant, theme }) =>
+    variant === "blue"
+      ? "#567bee"
+      : variant === "purple"
+      ? "#6562cc"
+      : variant === "gold"
+      ? "#a28411"
+      : theme.chipText};
   font-size: 0.93rem;
   border-radius: 16px;
   padding: 0.23rem 0.95rem;
   font-weight: 600;
   letter-spacing: 0.03em;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.2s, box-shadow 0.2s;
   cursor: pointer;
+  &:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 10;
 
   &:hover {
     transform: scale(1.1);
@@ -163,9 +181,9 @@ export default function AboutCard() {
         </PhotoBlock>
         <InfoBlock>
           <Chips>
-            <Chip>GSSOC Contributer</Chip>
-            <Chip>Experienced BCA Graduate</Chip>
-            <Chip style={{ background: "var(--accent2)", color: "var(--text)" }}>
+            <Chip variant="blue">GSSOC Contributer</Chip>
+            <Chip variant="purple">Experienced BCA Graduate</Chip>
+            <Chip variant="gold">
               Jr. Devops Engineer ( Aiops / MLops)
             </Chip>
           </Chips>
