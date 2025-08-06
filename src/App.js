@@ -20,6 +20,7 @@ import styled from "styled-components";
 import InfiniteScrollText from "./components/HorizontalTextScroll/InfiniteScrollText.jsx";
 import CountingCard from "./components/CountingCard/CountingCard.jsx";
 import LiquidGlassComponents from './components/LiquidGlassComponent/LiquidGlassComponents.jsx';
+import AboutCard from "./components/About/AboutCard.jsx";
 
 const Body = styled.div`
   background-color: ${({ theme }) => theme.bg};
@@ -72,6 +73,7 @@ function App() {
         <Body>
           <AlertNotification />
           <HeroSection />
+          <AboutCard />
           <About />
           <CountingCard />  
           <Wrapper>
