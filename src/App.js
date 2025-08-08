@@ -21,6 +21,7 @@ import InfiniteScrollText from "./components/HorizontalTextScroll/InfiniteScroll
 import CountingCard from "./components/CountingCard/CountingCard.jsx";
 import LiquidGlassComponents from './components/LiquidGlassComponent/LiquidGlassComponents.jsx';
 import AboutCard from "./components/About/AboutCard.jsx";
+import BowAndArrowGame from "./components/ReusableUI/BowAndArrowGame.jsx";
 
 const Body = styled.div`
   background-color: ${({ theme }) => theme.bg};
@@ -87,7 +88,11 @@ function App() {
           <Wrapper>
             <Contact />
           </Wrapper>
-          <Footer />
+         <Footer />
+<div style={{ maxWidth: '100%', margin: '0 auto' }}>
+  <BowAndArrowGame />
+</div>
+
           {openModal.state && (
             <ProjectDetails openModal={openModal} setOpenModal={setOpenModal} />
           )}

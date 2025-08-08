@@ -104,7 +104,7 @@ function Footer() {
           <SocialMediaIcon href={Bio.insta} target="display"><InstagramIcon /></SocialMediaIcon>
         </SocialMediaIcons>
         <Copyright>
-          &copy; 2023 Atul Oli. All rights reserved.
+          &copy; 2025 (AI) Atul Oli. All rights reserved.
         </Copyright>
 
       </FooterWrapper>
