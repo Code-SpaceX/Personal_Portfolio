@@ -27,11 +27,9 @@ export const darkTheme = {
   cardBg: "#202235",
   text: "#fff", // <-- white text for dark mode!
   secondaryText: "#aaa",
-  accent: "#8faaff",
   accent2: "#ffcb05",
   chipBg: "#393b56",
   chipText: "#d3cdfa",
-
   navBg: 'rgba(0, 0, 0, 0.6)',
   bg: "#1C1C27",
   bgLight: "#1C1E27",
