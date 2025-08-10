@@ -15,18 +15,22 @@ import Footer from "./components/Footer";
 import Experience from "./components/Experience";
 import Education1 from "./components/Education/Education1.jsx";
 import Education from "./components/Education/index.js";
-import AlertNotification from "./components/Notification/AlertNotification.jsx"
+import AlertNotification from "./components/Notification/AlertNotification.jsx";
 import ProjectDetails from "./components/ProjectDetails";
 import styled from "styled-components";
 import InfiniteScrollText from "./components/HorizontalTextScroll/InfiniteScrollText.jsx";
 import CountingCard from "./components/CountingCard/CountingCard.jsx";
-import LiquidGlassComponents from './components/LiquidGlassComponent/LiquidGlassComponents.jsx';
 import AboutCard from "./components/About/AboutCard.jsx";
 import BowAndArrowGame from "./components/ReusableUI/BowAndArrowGame.jsx";
 import Certifications from "./components/Certifications/Certifications.jsx";
 
+// Animation HOC
 import withAnimateOnView from './components/ReusableUI/withAnimatedOnView.jsx';
 
+// Intersection Observer
+import { useInView } from 'react-intersection-observer';
+
+// Styled wrappers
 const Body = styled.div`
   background-color: ${({ theme }) => theme.bg};
   width: 100%;
@@ -48,7 +52,7 @@ const Wrapper = styled.div`
   clip-path: polygon(0 0, 100% 0, 100% 100%, 30% 98%, 0 100%);
 `;
 
-// Wrap your components with HOC to add animation + loading on visibility
+// Animated components
 const AnimatedHeroSection = withAnimateOnView(HeroSection);
 const AnimatedAboutCard = withAnimateOnView(AboutCard);
 const AnimatedAbout = withAnimateOnView(About);
@@ -64,14 +68,11 @@ function App() {
   const [darkMode, setDarkMode] = useState(true);
   const [openModal, setOpenModal] = useState({ state: false, project: null });
 
+  // Theme toggling
   const toggleTheme = () => {
     const newMode = !darkMode;
     setDarkMode(newMode);
-    if (newMode) {
-      document.documentElement.classList.add('dark'); // Tailwind dark mode
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
+    document.documentElement.classList.toggle('dark', newMode);
     localStorage.setItem('theme', newMode ? 'dark' : 'light');
   };
 
@@ -81,6 +82,12 @@ function App() {
     setDarkMode(isDark);
     document.documentElement.classList.toggle('dark', isDark);
   }, []);
+
+  // Intersection observer for Contact section
+  const [contactRef, contactInView] = useInView({
+    threshold: 0.5,
+    triggerOnce: false,
+  });
 
   return (
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
@@ -106,14 +113,20 @@ function App() {
           <Certifications />
 
           <Wrapper>
-            <AnimatedContact />
+            {/* 👇 Observe this div wrapping the Contact section */}
+            <div ref={contactRef}>
+              <AnimatedContact />
+            </div>
           </Wrapper>
 
-          <Footer />
+          {/* 👇 Load the game only when Contact is in view */}
+          {contactInView && (
+            <div style={{ maxWidth: '100%', margin: '0 auto' }}>
+              <BowAndArrowGame />
+            </div>
+          )}
 
-          <div style={{ maxWidth: '100%', margin: '0 auto' }}>
-            <BowAndArrowGame />
-          </div>
+          <Footer />
 
           {openModal.state && (
             <ProjectDetails openModal={openModal} setOpenModal={setOpenModal} />
