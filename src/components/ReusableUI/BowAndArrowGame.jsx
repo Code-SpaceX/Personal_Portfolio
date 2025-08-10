@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useMemo } from 'react';
 
 const BowAndArrowGame = () => {
   const canvasRef = useRef(null);
@@ -6,13 +6,35 @@ const BowAndArrowGame = () => {
   const [arrow, setArrow] = useState(null);
   const [angle, setAngle] = useState(0);
   const [hit, setHit] = useState(null);
-  const [canvasSize, setCanvasSize] = useState({ width: 800, height: 600 });
+  const [points, setPoints] = useState(0);
+  const [canvasSize, setCanvasSize] = useState({ width: 800, height: 300 });
+  const [targetY, setTargetY] = useState(100);
+  const [targetDirection, setTargetDirection] = useState(1);
+  const targetRadius = 30;
+
+  const prefersDark =
+    window.matchMedia &&
+    window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+  const colors = useMemo(
+    () => ({
+      background: prefersDark ? '#1e1e1e' : '#f9f9f9',
+      text: prefersDark ? '#ffffff' : '#2c3e50',
+      bow: prefersDark ? '#ecf0f1' : '#2c3e50',
+      aim: '#3498db',
+      arrow: '#2ecc71',
+      hit: '#27ae60',
+      miss: '#e74c3c',
+      king: '#f39c12',
+      border: prefersDark ? '#555' : '#ccc',
+    }),
+    [prefersDark]
+  );
 
   const bowX = 100;
   const bowY = canvasSize.height / 2;
-  const target = { x: canvasSize.width - 100, y: canvasSize.height / 2, radius: 30 };
 
-  const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+  const clamp = (v, min, max) => Math.min(Math.max(v, min), max);
   const toRadians = (deg) => (deg * Math.PI) / 180;
 
   const handleMouseDown = () => setIsDragging(true);
@@ -20,70 +42,76 @@ const BowAndArrowGame = () => {
   const handleMouseUp = () => {
     if (!isDragging) return;
     setIsDragging(false);
-
     const speed = 10;
-    const vx = Math.cos(toRadians(angle)) * speed;
-    const vy = Math.sin(toRadians(angle)) * speed;
-
-    setArrow({ x: bowX, y: bowY, vx, vy });
+    setArrow({
+      x: bowX,
+      y: bowY,
+      vx: Math.cos(toRadians(angle)) * speed,
+      vy: Math.sin(toRadians(angle)) * speed,
+    });
   };
 
   const handleMouseMove = (e) => {
     if (!isDragging) return;
     const rect = canvasRef.current.getBoundingClientRect();
-    const mouseX = e.clientX - rect.left;
-    const mouseY = e.clientY - rect.top;
-    const dx = mouseX - bowX;
-    const dy = mouseY - bowY;
-    let rad = Math.atan2(dy, dx);
-    let deg = (rad * 180) / Math.PI;
-    deg = clamp(deg, -90, 90);
-    setAngle(deg);
+    const dx = e.clientX - rect.left - bowX;
+    const dy = e.clientY - rect.top - bowY;
+    setAngle(clamp((Math.atan2(dy, dx) * 180) / Math.PI, -90, 90));
   };
 
   const resetGame = () => {
     setArrow(null);
     setHit(null);
     setAngle(0);
+    setPoints(0);
   };
 
   useEffect(() => {
-    const resizeCanvas = () => {
-      const width = Math.min(800, window.innerWidth - 40);
-      const height = Math.min(600, window.innerHeight - 150);
-      setCanvasSize({ width, height });
+    const resize = () => {
+      setCanvasSize({
+        width: Math.min(800, window.innerWidth - 40),
+        height: Math.min(300, window.innerHeight - 150),
+      });
     };
-
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
-    return () => window.removeEventListener('resize', resizeCanvas);
+    resize();
+    window.addEventListener('resize', resize);
+    return () => window.removeEventListener('resize', resize);
   }, []);
 
   useEffect(() => {
     if (!canvasRef.current) return;
-
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext('2d');
+    const ctx = canvasRef.current.getContext('2d');
     let animationId;
 
     const render = () => {
+      updateTarget();
       updateArrow();
-      draw(ctx);
+      draw();
       animationId = requestAnimationFrame(render);
+    };
+
+    const updateTarget = () => {
+      const speed = 0.01;
+      const newY = targetY + targetDirection * speed;
+      setTargetDirection(
+        newY > canvasSize.height - targetRadius || newY < targetRadius
+          ? -targetDirection
+          : targetDirection
+      );
+      setTargetY(newY);
     };
 
     const updateArrow = () => {
       if (!arrow) return;
-
       const newX = arrow.x + arrow.vx;
       const newY = arrow.y + arrow.vy;
+      const dx = canvasSize.width - 100 - newX;
+      const dy = targetY - newY;
+      const dist = Math.hypot(dx, dy);
 
-      const dx = target.x - newX;
-      const dy = target.y - newY;
-      const distance = Math.sqrt(dx * dx + dy * dy);
-
-      if (distance < target.radius) {
+      if (dist < targetRadius) {
         setHit(true);
+        setPoints((p) => p + 1);
         setArrow(null);
       } else if (
         newX > canvasSize.width ||
@@ -92,94 +120,119 @@ const BowAndArrowGame = () => {
         newY < 0
       ) {
         setHit(false);
+        setPoints(0);
         setArrow(null);
       } else {
         setArrow({ ...arrow, x: newX, y: newY });
       }
     };
 
-    const draw = (ctx) => {
-      ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    const draw = () => {
+      ctx.clearRect(0, 0, canvasSize.width, canvasSize.height);
+      ctx.fillStyle = colors.background;
+      ctx.fillRect(0, 0, canvasSize.width, canvasSize.height);
 
-      // Target
       ctx.beginPath();
-      ctx.arc(target.x, target.y, target.radius, 0, Math.PI * 2);
-      ctx.fillStyle = hit === true ? '#27ae60' : '#e74c3c';
+      ctx.arc(canvasSize.width - 100, targetY, targetRadius, 0, 2 * Math.PI);
+      ctx.fillStyle = hit ? colors.hit : colors.miss;
       ctx.fill();
 
-      // Bow
       ctx.save();
       ctx.translate(bowX, bowY);
       ctx.rotate(toRadians(angle));
+      ctx.strokeStyle = colors.bow;
+      ctx.lineWidth = 5;
       ctx.beginPath();
       ctx.arc(0, 0, 30, Math.PI / 2, -Math.PI / 2);
-      ctx.strokeStyle = '#2c3e50';
-      ctx.lineWidth = 5;
       ctx.stroke();
 
       if (isDragging) {
-        // Aim line
+        ctx.setLineDash([5, 5]);
+        ctx.strokeStyle = colors.aim;
         ctx.beginPath();
         ctx.moveTo(0, 0);
         ctx.lineTo(100, 0);
-        ctx.setLineDash([5, 5]);
-        ctx.strokeStyle = '#3498db';
         ctx.stroke();
         ctx.setLineDash([]);
 
-        // Live preview trajectory
         ctx.beginPath();
-        let px = bowX;
-        let py = bowY;
-        const vx = Math.cos(toRadians(angle)) * 10;
-        const vy = Math.sin(toRadians(angle)) * 10;
+        let px = bowX,
+          py = bowY;
+        const vx0 = Math.cos(toRadians(angle)) * 10;
+        const vy0 = Math.sin(toRadians(angle)) * 10;
         ctx.moveTo(px, py);
         for (let i = 0; i < 50; i++) {
-          px += vx;
-          py += vy;
+          px += vx0;
+          py += vy0;
           ctx.lineTo(px, py);
-          if (px > canvasSize.width || py > canvasSize.height || px < 0 || py < 0) break;
+          if (
+            px > canvasSize.width ||
+            py > canvasSize.height ||
+            px < 0 ||
+            py < 0
+          )
+            break;
         }
         ctx.strokeStyle = 'rgba(52, 152, 219, 0.3)';
         ctx.stroke();
       }
-
       ctx.restore();
 
-      // Arrow
       if (arrow) {
         ctx.save();
         ctx.translate(arrow.x, arrow.y);
-        const arrowAngle = Math.atan2(arrow.vy, arrow.vx);
-        ctx.rotate(arrowAngle);
+        ctx.rotate(Math.atan2(arrow.vy, arrow.vx));
+        ctx.strokeStyle = colors.arrow;
+        ctx.lineWidth = 4;
         ctx.beginPath();
         ctx.moveTo(0, 0);
         ctx.lineTo(-20, 0);
-        ctx.strokeStyle = '#2ecc71';
-        ctx.lineWidth = 4;
         ctx.stroke();
         ctx.restore();
       }
 
-      // Status message
+      ctx.fillStyle = colors.text;
+      ctx.font = 'bold 20px Segoe UI';
+      ctx.fillText(`Score: ${points}`, 20, 30);
+
       if (hit === true) {
-        ctx.fillStyle = '#27ae60';
+        ctx.fillStyle = colors.hit;
         ctx.font = 'bold 24px Segoe UI';
         ctx.fillText('🎯 HIT!', canvasSize.width / 2 - 50, 50);
       } else if (hit === false) {
-        ctx.fillStyle = '#e74c3c';
+        ctx.fillStyle = colors.miss;
         ctx.font = 'bold 24px Segoe UI';
         ctx.fillText('💥 Oops! Missed!', canvasSize.width / 2 - 90, 50);
+      }
+
+      if (points >= 10) {
+        ctx.fillStyle = colors.king;
+        ctx.font = 'bold 28px Segoe UI';
+        ctx.fillText(
+          '👑 King of this game!',
+          canvasSize.width / 2 - 150,
+          canvasSize.height - 20
+        );
       }
     };
 
     render();
-
     return () => cancelAnimationFrame(animationId);
- }, [arrow, angle, isDragging, hit, canvasSize, target.x, target.y, target.radius, bowY]);
+  }, [
+    arrow,
+    angle,
+    isDragging,
+    hit,
+    points,
+    canvasSize,
+    targetY,
+    targetDirection,
+    colors,
+    bowY,
+  ]);
 
   return (
-    <div style={styles.container}>
+    <div style={{ ...styles.container, backgroundColor: colors.background, color: colors.text }}>
       <h2 style={styles.title}>🏹 Bow and Arrow Game</h2>
       <canvas
         ref={canvasRef}
@@ -188,33 +241,27 @@ const BowAndArrowGame = () => {
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
-        style={styles.canvas}
+        style={{ ...styles.canvas, borderColor: colors.border }}
       />
-      <button onClick={resetGame} style={styles.button}>Reset</button>
+      <button onClick={resetGame} style={styles.button}>
+        Reset
+      </button>
     </div>
   );
 };
 
 const styles = {
-  container: {
-    textAlign: 'center',
-    backgroundColor: '#f9f9f9',
-    minHeight: '100vh',
-    padding: '20px',
-    fontFamily: 'Segoe UI, sans-serif',
-    boxSizing: 'border-box',
-  },
-  title: {
-    marginBottom: '10px',
-    color: '#2c3e50',
-  },
+  container: { textAlign: 'center', minHeight: '100vh', padding: '20px', fontFamily: 'Segoe UI, sans-serif', boxSizing: 'border-box' },
+  title: { marginBottom: '10px' },
   canvas: {
-    border: '2px solid #ccc',
+    border: '2px solid',
     borderRadius: '8px',
     boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
     cursor: 'crosshair',
     maxWidth: '100%',
     height: 'auto',
+    display: 'block',
+    margin: '0 auto',
   },
   button: {
     marginTop: '15px',
