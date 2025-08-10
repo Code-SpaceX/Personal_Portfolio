@@ -5,6 +5,7 @@ import { darkTheme, lightTheme } from './utils/Themes.js';
 import Navbar from "./components/Navbar";
 import './App.css';
 import { BrowserRouter as Router } from 'react-router-dom';
+
 import HeroSection from "./components/HeroSection";
 import About from "./components/About/About";
 import Skills from "./components/Skills";
@@ -23,6 +24,8 @@ import LiquidGlassComponents from './components/LiquidGlassComponent/LiquidGlass
 import AboutCard from "./components/About/AboutCard.jsx";
 import BowAndArrowGame from "./components/ReusableUI/BowAndArrowGame.jsx";
 import Certifications from "./components/Certifications/Certifications.jsx";
+
+import withAnimateOnView from './components/ReusableUI/withAnimatedOnView.jsx';
 
 const Body = styled.div`
   background-color: ${({ theme }) => theme.bg};
@@ -45,6 +48,18 @@ const Wrapper = styled.div`
   clip-path: polygon(0 0, 100% 0, 100% 100%, 30% 98%, 0 100%);
 `;
 
+// Wrap your components with HOC to add animation + loading on visibility
+const AnimatedHeroSection = withAnimateOnView(HeroSection);
+const AnimatedAboutCard = withAnimateOnView(AboutCard);
+const AnimatedAbout = withAnimateOnView(About);
+const AnimatedCountingCard = withAnimateOnView(CountingCard);
+const AnimatedInfiniteScrollText = withAnimateOnView(InfiniteScrollText);
+const AnimatedSkills = withAnimateOnView(Skills);
+const AnimatedEducation1 = withAnimateOnView(Education1);
+const AnimatedEducation = withAnimateOnView(Education);
+const AnimatedExperience = withAnimateOnView(Experience);
+const AnimatedContact = withAnimateOnView(Contact);
+
 function App() {
   const [darkMode, setDarkMode] = useState(true);
   const [openModal, setOpenModal] = useState({ state: false, project: null });
@@ -60,7 +75,6 @@ function App() {
     localStorage.setItem('theme', newMode ? 'dark' : 'light');
   };
 
-  // Initialize from localStorage
   useEffect(() => {
     const saved = localStorage.getItem('theme') || 'dark';
     const isDark = saved === 'dark';
@@ -74,26 +88,32 @@ function App() {
         <Navbar toggleTheme={toggleTheme} />
         <Body>
           <AlertNotification />
-          <HeroSection />
-          <AboutCard />
-          <About />
-          <CountingCard />  
+
+          <AnimatedHeroSection />
+          <AnimatedAboutCard />
+          <AnimatedAbout />
+          <AnimatedCountingCard />
+
           <Wrapper>
-            <InfiniteScrollText />
-            <Skills />
-            <Education1 />
-            <Education/>
-            <Experience />
+            <AnimatedInfiniteScrollText />
+            <AnimatedSkills />
+            <AnimatedEducation1 />
+            <AnimatedEducation />
+            <AnimatedExperience />
           </Wrapper>
+
           <Projects openModal={openModal} setOpenModal={setOpenModal} />
           <Certifications />
+
           <Wrapper>
-            <Contact />
+            <AnimatedContact />
           </Wrapper>
-         <Footer />
-<div style={{ maxWidth: '100%', margin: '0 auto' }}>
-  <BowAndArrowGame />
-</div>
+
+          <Footer />
+
+          <div style={{ maxWidth: '100%', margin: '0 auto' }}>
+            <BowAndArrowGame />
+          </div>
 
           {openModal.state && (
             <ProjectDetails openModal={openModal} setOpenModal={setOpenModal} />
