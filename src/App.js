@@ -22,6 +22,7 @@ import CountingCard from "./components/CountingCard/CountingCard.jsx";
 import LiquidGlassComponents from './components/LiquidGlassComponent/LiquidGlassComponents.jsx';
 import AboutCard from "./components/About/AboutCard.jsx";
 import BowAndArrowGame from "./components/ReusableUI/BowAndArrowGame.jsx";
+import Certifications from "./components/Certifications/Certifications.jsx";
 
 const Body = styled.div`
   background-color: ${({ theme }) => theme.bg};
@@ -85,6 +86,7 @@ function App() {
             <Experience />
           </Wrapper>
           <Projects openModal={openModal} setOpenModal={setOpenModal} />
+          <Certifications />
           <Wrapper>
             <Contact />
           </Wrapper>
