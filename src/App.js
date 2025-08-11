@@ -2,10 +2,14 @@
 
 import { ThemeProvider } from "styled-components";
 import { useEffect, useState } from "react";
-import { darkTheme, lightTheme, starTheme as starThemeObject } from './utils/Themes.js'; // Rename to avoid collision
+import {
+  darkTheme,
+  lightTheme,
+  starTheme as starThemeObject,
+} from "./utils/Themes.js"; // Rename to avoid collision
 import Navbar from "./components/Navbar";
-import './App.css';
-import { BrowserRouter as Router } from 'react-router-dom';
+import "./App.css";
+import { BrowserRouter as Router } from "react-router-dom";
 import StarTheme from "./themes/StarTheme.jsx";
 import HeroSection from "./components/HeroSection";
 import About from "./components/About/About";
@@ -26,12 +30,14 @@ import BowAndArrowGame from "./components/ReusableUI/BowAndArrowGame.jsx";
 import Certifications from "./components/Certifications/Certifications.jsx";
 
 // Animation HOC
-import withAnimateOnView from './components/ReusableUI/withAnimatedOnView.jsx';
+import withAnimateOnView from "./components/ReusableUI/withAnimatedOnView.jsx";
 
 // Intersection Observer
-import { useInView } from 'react-intersection-observer';
+import { useInView } from "react-intersection-observer";
 import SkillsModified from "./components/Skills/Skills.modified.jsx";
 import SkillSwitcher from "./components/ReusableUI/SkillSwitcher.jsx";
+import ColorMixer from "./components/ReusableUI/MixGradient.jsx";
+
 // Styled wrappers
 const Body = styled.div`
   background-color: ${({ theme }) => theme.bg};
@@ -42,15 +48,11 @@ const Body = styled.div`
 
 const Wrapper = styled.div`
   background: linear-gradient(
-    38.73deg,
-    rgba(204, 0, 187, 0.15) 0%,
-    rgba(201, 32, 184, 0) 50%
-  ),
-  linear-gradient(
-    141.27deg,
-    rgba(0, 70, 209, 0) 50%,
-    rgba(0, 70, 209, 0.15) 100%
-  );
+      38.73deg,
+      rgba(204, 0, 187, 0.15) 0%,
+      rgba(201, 32, 184, 0) 50%
+    ),
+    linear-gradient(141.27deg, rgba(0, 70, 209, 0) 50%, rgba(0, 70, 209, 0.15) 100%);
   width: 100%;
   clip-path: polygon(0 0, 100% 0, 100% 100%, 30% 98%, 0 100%);
 `;
@@ -67,6 +69,40 @@ const AnimatedEducation = withAnimateOnView(Education);
 const AnimatedExperience = withAnimateOnView(Experience);
 const AnimatedContact = withAnimateOnView(Contact);
 
+const ComponentToggleWrapper = styled.div`
+  max-width: 150%;
+  margin: 2rem auto 3rem;
+  text-align: center;
+`;
+
+const ToggleButtons = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+`;
+
+const ToggleButton = styled.button`
+  padding: 12px 28px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  background-color: ${({ active, theme }) =>
+    active ? theme.primary : theme.bgLight || "#e0e7ff"};
+  color: ${({ active, theme }) => (active ? "#fff" : theme.primary)};
+  box-shadow: ${({ active }) =>
+    active ? "0 6px 16px rgba(79, 70, 229, 0.6)" : "none"};
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: ${({ active, theme }) =>
+      active ? theme.primary : "#c7d2fe"};
+    color: ${({ active }) => (active ? "#fff" : "#3730a3")};
+  }
+`;
+
 function App() {
   const [darkMode, setDarkMode] = useState(true);
   const [isStarTheme, setIsStarTheme] = useState(false);
@@ -77,8 +113,8 @@ function App() {
     setIsStarTheme(false); // Turn off star theme if switching manually
     const newMode = !darkMode;
     setDarkMode(newMode);
-    document.documentElement.classList.toggle('dark', newMode);
-    localStorage.setItem('theme', newMode ? 'dark' : 'light');
+    document.documentElement.classList.toggle("dark", newMode);
+    localStorage.setItem("theme", newMode ? "dark" : "light");
   };
 
   // Handle Star Theme toggle
@@ -87,24 +123,24 @@ function App() {
     setIsStarTheme(newStarTheme);
     if (newStarTheme) {
       setDarkMode(false); // Ensure darkMode is off
-      localStorage.setItem('theme', 'star');
-      document.documentElement.classList.add('dark');
+      localStorage.setItem("theme", "star");
+      document.documentElement.classList.add("dark");
     } else {
-      const savedDark = localStorage.getItem('theme') === 'dark';
+      const savedDark = localStorage.getItem("theme") === "dark";
       setDarkMode(savedDark);
-      document.documentElement.classList.toggle('dark', savedDark);
-      localStorage.setItem('theme', savedDark ? 'dark' : 'light');
+      document.documentElement.classList.toggle("dark", savedDark);
+      localStorage.setItem("theme", savedDark ? "dark" : "light");
     }
   };
 
   // Load saved theme on mount
   useEffect(() => {
-    const saved = localStorage.getItem('theme') || 'dark';
-    const isDark = saved === 'dark';
-    const isStar = saved === 'star';
+    const saved = localStorage.getItem("theme") || "dark";
+    const isDark = saved === "dark";
+    const isStar = saved === "star";
     setDarkMode(isDark);
     setIsStarTheme(isStar);
-    document.documentElement.classList.toggle('dark', isDark || isStar);
+    document.documentElement.classList.toggle("dark", isDark || isStar);
   }, []);
 
   // Intersection observer for Contact section
@@ -114,9 +150,18 @@ function App() {
   });
 
   const [skillsVersion, setSkillsVersion] = useState("original");
-
+  const [activeComponent, setActiveComponent] = useState("bowGame");
+  
   return (
-    <ThemeProvider theme={isStarTheme ? starThemeObject : darkMode ? darkTheme : lightTheme}>
+    <ThemeProvider
+      theme={
+        isStarTheme
+          ? starThemeObject
+          : darkMode
+          ? darkTheme
+          : lightTheme
+      }
+    >
       <Router>
         <Navbar toggleTheme={toggleTheme} toggleStar={toggleStar} />
         <Body>
@@ -131,19 +176,20 @@ function App() {
           <AnimatedCountingCard />
 
           <Wrapper>
-
             <AnimatedInfiniteScrollText />
-            <SkillSwitcher skillsVersion={skillsVersion} setSkillsVersion={setSkillsVersion} />
-  {skillsVersion === "original" ? (
-    <AnimatedSkills />
-  ) : (
-    <SkillsModified />
-  )}
+            <SkillSwitcher
+              skillsVersion={skillsVersion}
+              setSkillsVersion={setSkillsVersion}
+            />
+            {skillsVersion === "original" ? (
+              <AnimatedSkills />
+            ) : (
+              <SkillsModified />
+            )}
             <AnimatedEducation1 />
             <AnimatedEducation />
             <AnimatedExperience />
           </Wrapper>
-
           <Projects openModal={openModal} setOpenModal={setOpenModal} />
           <Certifications />
 
@@ -152,14 +198,38 @@ function App() {
               <AnimatedContact />
             </div>
           </Wrapper>
-          {contactInView && (
-            <div style={{ maxWidth: '100%', margin: '0 auto' }}>
-              <BowAndArrowGame />
-            </div>
-          )}
+
+          {/* Component toggle UI */}
+          <ComponentToggleWrapper>
+            <ToggleButtons>
+              <ToggleButton
+                active={activeComponent === "colorMixer"}
+                onClick={() => setActiveComponent("colorMixer")}
+                aria-label="Show Color Mixer"
+              >
+                Color Mixer
+              </ToggleButton>
+              <ToggleButton
+                active={activeComponent === "bowGame"}
+                onClick={() => setActiveComponent("bowGame")}
+                aria-label="Show Bow and Arrow Game"
+              >
+                Bow & Arrow Game
+              </ToggleButton>
+            </ToggleButtons>
+            <div
+  style={{
+    minWidth: "600px",  // Set the width you want
+    height: "400px",    // Set the height you want
+    margin: "0 auto",
+  }}
+>
+  {activeComponent === "colorMixer" && <ColorMixer />}
+  {activeComponent === "bowGame" && <BowAndArrowGame />}
+</div>
+          </ComponentToggleWrapper>
 
           <Footer />
-
           {openModal.state && (
             <ProjectDetails openModal={openModal} setOpenModal={setOpenModal} />
           )}

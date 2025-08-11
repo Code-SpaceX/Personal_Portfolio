@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, useMemo } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 
 const BowAndArrowGame = () => {
   const canvasRef = useRef(null);
@@ -10,26 +10,34 @@ const BowAndArrowGame = () => {
   const [canvasSize, setCanvasSize] = useState({ width: 800, height: 300 });
   const [targetY, setTargetY] = useState(100);
   const [targetDirection, setTargetDirection] = useState(1);
+  const [prefersDark, setPrefersDark] = useState(
+    window.matchMedia &&
+      window.matchMedia('(prefers-color-scheme: dark)').matches
+  );
   const targetRadius = 30;
 
-  const prefersDark =
-    window.matchMedia &&
-    window.matchMedia('(prefers-color-scheme: dark)').matches;
+  // Update theme dynamically on system theme change
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const handleChange = (e) => {
+      setPrefersDark(e.matches);
+    };
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, []);
 
-  const colors = useMemo(
-    () => ({
-      background: prefersDark ? '#1e1e1e' : '#f9f9f9',
-      text: prefersDark ? '#ffffff' : '#2c3e50',
-      bow: prefersDark ? '#ecf0f1' : '#2c3e50',
-      aim: '#3498db',
-      arrow: '#2ecc71',
-      hit: '#27ae60',
-      miss: '#e74c3c',
-      king: '#f39c12',
-      border: prefersDark ? '#555' : '#ccc',
-    }),
-    [prefersDark]
-  );
+  // Colors based on current theme
+  const colors = {
+    background: prefersDark ? '#1e1e1e' : '#f9f9f9',
+    text: prefersDark ? '#ffffff' : '#2c3e50',
+    bow: prefersDark ? '#ecf0f1' : '#2c3e50',
+    aim: '#3498db',
+    arrow: '#2ecc71',
+    hit: '#27ae60',
+    miss: '#e74c3c',
+    king: '#f39c12',
+    border: prefersDark ? '#555' : '#ccc',
+  };
 
   const bowX = 100;
   const bowY = canvasSize.height / 2;
@@ -93,12 +101,11 @@ const BowAndArrowGame = () => {
     const updateTarget = () => {
       const speed = 0.01;
       const newY = targetY + targetDirection * speed;
-      setTargetDirection(
-        newY > canvasSize.height - targetRadius || newY < targetRadius
-          ? -targetDirection
-          : targetDirection
-      );
-      setTargetY(newY);
+      if (newY > canvasSize.height - targetRadius || newY < targetRadius) {
+        setTargetDirection(-targetDirection);
+      } else {
+        setTargetY(newY);
+      }
     };
 
     const updateArrow = () => {
@@ -134,7 +141,7 @@ const BowAndArrowGame = () => {
 
       ctx.beginPath();
       ctx.arc(canvasSize.width - 100, targetY, targetRadius, 0, 2 * Math.PI);
-      ctx.fillStyle = hit ? colors.hit : colors.miss;
+      ctx.fillStyle = hit === null ? colors.miss : hit ? colors.hit : colors.miss;
       ctx.fill();
 
       ctx.save();
@@ -232,7 +239,13 @@ const BowAndArrowGame = () => {
   ]);
 
   return (
-    <div style={{ ...styles.container, backgroundColor: colors.background, color: colors.text }}>
+    <div
+      style={{
+        ...styles.container,
+        backgroundColor: colors.background,
+        color: colors.text,
+      }}
+    >
       <h2 style={styles.title}>🏹 Bow and Arrow Game</h2>
       <canvas
         ref={canvasRef}
@@ -251,7 +264,13 @@ const BowAndArrowGame = () => {
 };
 
 const styles = {
-  container: { textAlign: 'center', minHeight: '100vh', padding: '20px', fontFamily: 'Segoe UI, sans-serif', boxSizing: 'border-box' },
+  container: {
+    textAlign: 'center',
+    minHeight: '100vh',
+    padding: '20px',
+    fontFamily: 'Segoe UI, sans-serif',
+    boxSizing: 'border-box',
+  },
   title: { marginBottom: '10px' },
   canvas: {
     border: '2px solid',
