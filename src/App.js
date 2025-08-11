@@ -1,11 +1,12 @@
 // App.js
+
 import { ThemeProvider } from "styled-components";
 import { useEffect, useState } from "react";
-import { darkTheme, lightTheme } from './utils/Themes.js';
+import { darkTheme, lightTheme, starTheme as starThemeObject } from './utils/Themes.js'; // Rename to avoid collision
 import Navbar from "./components/Navbar";
 import './App.css';
 import { BrowserRouter as Router } from 'react-router-dom';
-
+import StarTheme from "./themes/StarTheme.jsx";
 import HeroSection from "./components/HeroSection";
 import About from "./components/About/About";
 import Skills from "./components/Skills";
@@ -35,6 +36,7 @@ const Body = styled.div`
   background-color: ${({ theme }) => theme.bg};
   width: 100%;
   overflow-x: hidden;
+  position: relative;
 `;
 
 const Wrapper = styled.div`
@@ -66,21 +68,42 @@ const AnimatedContact = withAnimateOnView(Contact);
 
 function App() {
   const [darkMode, setDarkMode] = useState(true);
+  const [isStarTheme, setIsStarTheme] = useState(false);
   const [openModal, setOpenModal] = useState({ state: false, project: null });
 
-  // Theme toggling
+  // Theme toggling function
   const toggleTheme = () => {
+    setIsStarTheme(false); // Turn off star theme if switching manually
     const newMode = !darkMode;
     setDarkMode(newMode);
     document.documentElement.classList.toggle('dark', newMode);
     localStorage.setItem('theme', newMode ? 'dark' : 'light');
   };
 
+  // Handle Star Theme toggle
+  const toggleStar = () => {
+    const newStarTheme = !isStarTheme;
+    setIsStarTheme(newStarTheme);
+    if (newStarTheme) {
+      setDarkMode(false); // Ensure darkMode is off
+      localStorage.setItem('theme', 'star');
+      document.documentElement.classList.add('dark');
+    } else {
+      const savedDark = localStorage.getItem('theme') === 'dark';
+      setDarkMode(savedDark);
+      document.documentElement.classList.toggle('dark', savedDark);
+      localStorage.setItem('theme', savedDark ? 'dark' : 'light');
+    }
+  };
+
+  // Load saved theme on mount
   useEffect(() => {
     const saved = localStorage.getItem('theme') || 'dark';
     const isDark = saved === 'dark';
+    const isStar = saved === 'star';
     setDarkMode(isDark);
-    document.documentElement.classList.toggle('dark', isDark);
+    setIsStarTheme(isStar);
+    document.documentElement.classList.toggle('dark', isDark || isStar);
   }, []);
 
   // Intersection observer for Contact section
@@ -90,10 +113,13 @@ function App() {
   });
 
   return (
-    <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
+    <ThemeProvider theme={isStarTheme ? starThemeObject : darkMode ? darkTheme : lightTheme}>
       <Router>
-        <Navbar toggleTheme={toggleTheme} />
+        <Navbar toggleTheme={toggleTheme} toggleStar={toggleStar} />
         <Body>
+          {/* Render Star background if star theme is active */}
+          {isStarTheme && <StarTheme />}
+
           <AlertNotification />
 
           <AnimatedHeroSection />
@@ -113,13 +139,11 @@ function App() {
           <Certifications />
 
           <Wrapper>
-            {/* 👇 Observe this div wrapping the Contact section */}
             <div ref={contactRef}>
               <AnimatedContact />
             </div>
           </Wrapper>
 
-          {/* 👇 Load the game only when Contact is in view */}
           {contactInView && (
             <div style={{ maxWidth: '100%', margin: '0 auto' }}>
               <BowAndArrowGame />

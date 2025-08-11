@@ -12,6 +12,9 @@ const EyeFollowing = () => {
   const prevAngleRef = useRef(null);
   const rotationSum = useRef(0);
   const hasSmiled = useRef(false);
+  const isMouseInside = useRef(false);
+
+  const faceCenterRef = useRef(null);
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -26,9 +29,9 @@ const EyeFollowing = () => {
     const faceCenterX = window.innerWidth / 2;
     const faceCenterY = window.innerHeight / 2;
 
+    // If inside the EyeFollowing, we track within its boundary
     const dx = cursorPos.x - faceCenterX;
     const dy = cursorPos.y - faceCenterY;
-
     const angle = Math.atan2(dy, dx) * (180 / Math.PI);
     const normalizedAngle = (angle + 360) % 360;
 
@@ -54,6 +57,7 @@ const EyeFollowing = () => {
 
     prevAngleRef.current = normalizedAngle;
 
+    // Track pupil movement
     [leftEyeRef, rightEyeRef].forEach((eyeRef, i) => {
       const pupilRef = i === 0 ? leftPupilRef : rightPupilRef;
       const eye = eyeRef.current;
@@ -74,11 +78,24 @@ const EyeFollowing = () => {
 
       pupil.style.transform = `translate(${x}px, ${y}px)`;
     });
+
   }, [cursorPos]);
 
+  const handleMouseEnter = () => {
+    isMouseInside.current = true;
+  };
+
+  const handleMouseLeave = () => {
+    isMouseInside.current = false;
+  };
+
   return (
-    <div style={styles.container}>
-      <div style={styles.face}>
+    <div
+      style={styles.container}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      <div style={styles.face} ref={faceCenterRef}>
         <div ref={leftEyeRef} style={styles.eye}>
           <div ref={leftPupilRef} style={styles.pupil}></div>
         </div>

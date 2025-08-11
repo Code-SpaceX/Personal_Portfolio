@@ -68,3 +68,31 @@ export const lightTheme = {
   black: "#000000",
   footerBackground: "#F2F2F2",
 };
+
+export const starTheme = {
+  mainBg: "#0A0C20",  // Dark background for the star effect
+  cardBg: "#202235",
+  text: "#fff", 
+  secondaryText: "#aaa",
+  accent2: "#ffcb05",
+  chipBg: "#393b56",
+  chipText: "#d3cdfa",
+  navBg: 'rgba(0, 0, 0, 0.6)',
+  bg: "#0A0C20",  // Darker background for star theme
+  bgLight: "#1C1E27",
+  primary: "#854CE6",
+  accent: "#A27AFF",
+  text_primary: "#F2F3F4",
+  text_secondary: "#B1B2B3",
+  card: "#171721",
+  card_light: "#191924",
+  button: "#854CE6",
+  toggle_bg: "#312F45",
+  toggle_text: "#C8C8E4",
+  toggle_border: "#544D7A",
+  toggle_hover_bg: "#854CE6",
+  white: "#FFFFFF",
+  black: "#000000",
+  footerBackground: "#00012B",
+  starEffect: true,  // Add a flag to enable the star effect
+};

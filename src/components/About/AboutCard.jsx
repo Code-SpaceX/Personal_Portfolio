@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import EyeFollowing from "../ReusableUI/EyeFollowing";
-
+import Component3Dmove from "../ReusableUI/Component3Dmove";
 const Card = styled.div`
   background: ${({ theme }) => theme.cardBg};
   border-radius: 24px;
@@ -192,9 +192,11 @@ export default function AboutCard() {
     <Card>
       <PhotoBlock>
         <PhotoFrame>
-          <EyeFollowingWrapper>
-            <EyeFollowing />
-          </EyeFollowingWrapper>
+          <Component3Dmove intensity={20}>
+    <EyeFollowingWrapper>
+      <EyeFollowing />
+    </EyeFollowingWrapper>
+  </Component3Dmove>
         </PhotoFrame>
       </PhotoBlock>
 

@@ -14,15 +14,16 @@ import {
   NavItemsWrapper,
   ThemeToggleButton,
   MobileThemeToggleButton,
+  StarButton, // Import the new button style
 } from './NavbarStyledComponent';
 
 import { DiCssdeck } from 'react-icons/di';
-import { FaBars, FaHome, FaProjectDiagram, FaArrowUp, FaSun, FaMoon } from 'react-icons/fa';
+import { FaBars, FaHome, FaProjectDiagram, FaArrowUp, FaSun, FaMoon, FaStar } from 'react-icons/fa';
 import { Bio } from '../../data/constants';
 import { useTheme } from 'styled-components';
-import styled from 'styled-components';
 import GlassEffectNotify from '../Notification/GlassEffectNotify';
-import { Link as ScrollLink, animateScroll as scroll } from 'react-scroll';
+import { Link as ScrollLink } from 'react-scroll';
+import styled from 'styled-components';
 
 const BottomNav = styled.div`
   position: fixed;
@@ -70,12 +71,12 @@ const BottomThemeToggle = styled.button`
   }
 `;
 
-const Navbar = ({ toggleTheme }) => {
+const Navbar = ({ toggleTheme, toggleStar, isStarThemeActive }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [shrink, setShrink] = useState(false);
   const [showBottomNav, setShowBottomNav] = useState(true);
   const theme = useTheme();
-  const isDarkMode = theme.bg === "#1C1C27";
+  const isDarkMode = theme.starEffect || theme.bg === "#1C1C27"; // Treat Star theme as dark
 
   // Handle scroll for top navbar shrinking
   useEffect(() => {
@@ -103,10 +104,19 @@ const Navbar = ({ toggleTheme }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Function to toggle the Star theme
+  const handleStarClick = () => {
+    if (typeof toggleStar === 'function') {
+      toggleStar();
+    } else {
+      console.warn('toggleStar is not a function');
+    }
+  };
+
   return (
     <>
-    <GlassEffectNotify />
-      <Nav shrink={shrink}>
+      <GlassEffectNotify />
+      <Nav shrink={shrink} isStarTheme={isStarThemeActive}>
         <NavbarContainer>
           <NavLogo to='/' shrink={shrink}>
             <DiCssdeck size="2rem" />
@@ -118,23 +128,23 @@ const Navbar = ({ toggleTheme }) => {
           </MobileIcon>
 
           <NavItemsWrapper>
-           <NavItems>
-  <ScrollLink to="about" smooth={true} duration={600} offset={-60}>
-    <NavLink as="div">About</NavLink>
-  </ScrollLink>
-  <ScrollLink to="skills" smooth={true} duration={600} offset={-60}>
-    <NavLink as="div">Skills</NavLink>
-  </ScrollLink>
-  <ScrollLink to="experience" smooth={true} duration={600} offset={-60}>
-    <NavLink as="div">Experience</NavLink>
-  </ScrollLink>
-  <ScrollLink to="projects" smooth={true} duration={600} offset={-60}>
-    <NavLink as="div">Projects</NavLink>
-  </ScrollLink>
-  <ScrollLink to="education" smooth={true} duration={600} offset={-60}>
-    <NavLink as="div">Education</NavLink>
-  </ScrollLink>
-</NavItems>
+            <NavItems>
+              <ScrollLink to="about" smooth={true} duration={600} offset={-60}>
+                <NavLink as="div">About</NavLink>
+              </ScrollLink>
+              <ScrollLink to="skills" smooth={true} duration={600} offset={-60}>
+                <NavLink as="div">Skills</NavLink>
+              </ScrollLink>
+              <ScrollLink to="experience" smooth={true} duration={600} offset={-60}>
+                <NavLink as="div">Experience</NavLink>
+              </ScrollLink>
+              <ScrollLink to="projects" smooth={true} duration={600} offset={-60}>
+                <NavLink as="div">Projects</NavLink>
+              </ScrollLink>
+              <ScrollLink to="education" smooth={true} duration={600} offset={-60}>
+                <NavLink as="div">Education</NavLink>
+              </ScrollLink>
+            </NavItems>
           </NavItemsWrapper>
 
           <ButtonContainer>
@@ -147,6 +157,9 @@ const Navbar = ({ toggleTheme }) => {
               Github
             </GitHubButton>
             <ThemeToggleButton onClick={toggleTheme}>Theme</ThemeToggleButton>
+            <StarButton onClick={handleStarClick}>
+              <FaStar color={isStarThemeActive ? 'gold' : 'inherit'} />
+            </StarButton>
           </ButtonContainer>
 
           {isOpen && (
