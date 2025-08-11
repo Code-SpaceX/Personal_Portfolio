@@ -14,7 +14,7 @@ import {
   NavItemsWrapper,
   ThemeToggleButton,
   MobileThemeToggleButton,
-  StarButton, // Import the new button style
+  StarButton,
 } from './NavbarStyledComponent';
 
 import { DiCssdeck } from 'react-icons/di';
@@ -25,6 +25,7 @@ import GlassEffectNotify from '../Notification/GlassEffectNotify';
 import { Link as ScrollLink } from 'react-scroll';
 import styled from 'styled-components';
 
+// Bottom navbar (mobile only)
 const BottomNav = styled.div`
   position: fixed;
   bottom: ${({ show }) => (show ? '0' : '-80px')};
@@ -75,36 +76,42 @@ const Navbar = ({ toggleTheme, toggleStar, isStarThemeActive }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [shrink, setShrink] = useState(false);
   const [showBottomNav, setShowBottomNav] = useState(true);
+  const [showNavbar, setShowNavbar] = useState(true);
   const theme = useTheme();
-  const isDarkMode = theme.starEffect || theme.bg === "#1C1C27"; // Treat Star theme as dark
+  const isDarkMode = theme.starEffect || theme.bg === "#1C1C27";
 
-  // Handle scroll for top navbar shrinking
-  useEffect(() => {
-    const handleScroll = () => {
-      setShrink(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  // Handle scroll for bottom navbar visibility
   useEffect(() => {
     let lastScrollY = window.scrollY;
+
     const handleScroll = () => {
-      if (window.scrollY < 50) {
-        setShowBottomNav(true);
-      } else if (window.scrollY > lastScrollY) {
-        setShowBottomNav(false); // scrolling down
+      const currentScrollY = window.scrollY;
+
+      // Shrink effect for top navbar
+      setShrink(currentScrollY > 50);
+
+      // Hide/show top navbar on scroll direction
+      if (currentScrollY > lastScrollY && currentScrollY > 60) {
+        setShowNavbar(false); // scrolling down
       } else {
-        setShowBottomNav(true); // scrolling up
+        setShowNavbar(true); // scrolling up
       }
-      lastScrollY = window.scrollY;
+
+      // Hide/show bottom navbar for mobile
+      if (currentScrollY < 50) {
+        setShowBottomNav(true);
+      } else if (currentScrollY > lastScrollY) {
+        setShowBottomNav(false);
+      } else {
+        setShowBottomNav(true);
+      }
+
+      lastScrollY = currentScrollY;
     };
+
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Function to toggle the Star theme
   const handleStarClick = () => {
     if (typeof toggleStar === 'function') {
       toggleStar();
@@ -116,7 +123,10 @@ const Navbar = ({ toggleTheme, toggleStar, isStarThemeActive }) => {
   return (
     <>
       <GlassEffectNotify />
-      <Nav shrink={shrink} isStarTheme={isStarThemeActive}>
+      <Nav shrink={shrink} isStarTheme={isStarThemeActive} style={{
+        transform: showNavbar ? 'translateY(0)' : 'translateY(-100%)',
+        transition: 'transform 0.3s ease'
+      }}>
         <NavbarContainer>
           <NavLogo to='/' shrink={shrink}>
             <DiCssdeck size="2rem" />
@@ -129,19 +139,19 @@ const Navbar = ({ toggleTheme, toggleStar, isStarThemeActive }) => {
 
           <NavItemsWrapper>
             <NavItems>
-              <ScrollLink to="about" smooth={true} duration={600} offset={-60}>
+              <ScrollLink to="about" smooth duration={600} offset={-60}>
                 <NavLink as="div">About</NavLink>
               </ScrollLink>
-              <ScrollLink to="skills" smooth={true} duration={600} offset={-60}>
+              <ScrollLink to="skills" smooth duration={600} offset={-60}>
                 <NavLink as="div">Skills</NavLink>
               </ScrollLink>
-              <ScrollLink to="experience" smooth={true} duration={600} offset={-60}>
+              <ScrollLink to="experience" smooth duration={600} offset={-60}>
                 <NavLink as="div">Experience</NavLink>
               </ScrollLink>
-              <ScrollLink to="projects" smooth={true} duration={600} offset={-60}>
+              <ScrollLink to="projects" smooth duration={600} offset={-60}>
                 <NavLink as="div">Projects</NavLink>
               </ScrollLink>
-              <ScrollLink to="education" smooth={true} duration={600} offset={-60}>
+              <ScrollLink to="education" smooth duration={600} offset={-60}>
                 <NavLink as="div">Education</NavLink>
               </ScrollLink>
             </NavItems>
