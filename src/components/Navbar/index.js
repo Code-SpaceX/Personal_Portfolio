@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import {
   Nav,
   NavLink,
@@ -80,6 +80,9 @@ const Navbar = ({ toggleTheme, toggleStar, isStarThemeActive }) => {
   const theme = useTheme();
   const isDarkMode = theme.starEffect || theme.bg === "#1C1C27";
 
+  // Ref for the mobile menu container to detect outside clicks
+  const menuRef = useRef(null);
+
   useEffect(() => {
     let lastScrollY = window.scrollY;
 
@@ -112,6 +115,25 @@ const Navbar = ({ toggleTheme, toggleStar, isStarThemeActive }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Close mobile menu on outside click
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    }
+
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isOpen]);
+
   const handleStarClick = () => {
     if (typeof toggleStar === 'function') {
       toggleStar();
@@ -123,12 +145,16 @@ const Navbar = ({ toggleTheme, toggleStar, isStarThemeActive }) => {
   return (
     <>
       <GlassEffectNotify />
-      <Nav shrink={shrink} isStarTheme={isStarThemeActive} style={{
-        transform: showNavbar ? 'translateY(0)' : 'translateY(-100%)',
-        transition: 'transform 0.3s ease'
-      }}>
+      <Nav
+        shrink={shrink}
+        isStarTheme={isStarThemeActive}
+        style={{
+          transform: showNavbar ? 'translateY(0)' : 'translateY(-100%)',
+          transition: 'transform 0.3s ease',
+        }}
+      >
         <NavbarContainer>
-          <NavLogo to='/' shrink={shrink}>
+          <NavLogo to="/" shrink={shrink}>
             <DiCssdeck size="2rem" />
             <Span shrink={shrink}>Portfolio</Span>
           </NavLogo>
@@ -173,12 +199,22 @@ const Navbar = ({ toggleTheme, toggleStar, isStarThemeActive }) => {
           </ButtonContainer>
 
           {isOpen && (
-            <MobileMenu isOpen={isOpen}>
-              <MobileLink href="#about" onClick={() => setIsOpen(false)}>About</MobileLink>
-              <MobileLink href="#skills" onClick={() => setIsOpen(false)}>Skills</MobileLink>
-              <MobileLink href="#experience" onClick={() => setIsOpen(false)}>Experience</MobileLink>
-              <MobileLink href="#projects" onClick={() => setIsOpen(false)}>Projects</MobileLink>
-              <MobileLink href="#education" onClick={() => setIsOpen(false)}>Education</MobileLink>
+            <MobileMenu ref={menuRef} isOpen={isOpen}>
+              <MobileLink href="#about" onClick={() => setIsOpen(false)}>
+                About
+              </MobileLink>
+              <MobileLink href="#skills" onClick={() => setIsOpen(false)}>
+                Skills
+              </MobileLink>
+              <MobileLink href="#experience" onClick={() => setIsOpen(false)}>
+                Experience
+              </MobileLink>
+              <MobileLink href="#projects" onClick={() => setIsOpen(false)}>
+                Projects
+              </MobileLink>
+              <MobileLink href="#education" onClick={() => setIsOpen(false)}>
+                Education
+              </MobileLink>
 
               <GitHubButton
                 style={{
@@ -201,7 +237,7 @@ const Navbar = ({ toggleTheme, toggleStar, isStarThemeActive }) => {
                   setIsOpen(false);
                 }}
               >
-                {isDarkMode ? "Light Mode" : "Dark Mode"}
+                {isDarkMode ? 'Light Mode' : 'Dark Mode'}
               </MobileThemeToggleButton>
             </MobileMenu>
           )}
@@ -220,7 +256,9 @@ const Navbar = ({ toggleTheme, toggleStar, isStarThemeActive }) => {
           {isDarkMode ? <FaSun /> : <FaMoon />}
         </BottomThemeToggle>
         <BottomNavButton href="#">
-          <FaArrowUp onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} />
+          <FaArrowUp
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          />
         </BottomNavButton>
       </BottomNav>
     </>

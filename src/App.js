@@ -30,6 +30,8 @@ import withAnimateOnView from './components/ReusableUI/withAnimatedOnView.jsx';
 
 // Intersection Observer
 import { useInView } from 'react-intersection-observer';
+import SkillsModified from "./components/Skills/Skills.modified.jsx";
+import SkillSwitcher from "./components/ReusableUI/SkillSwitcher.jsx";
 
 // Styled wrappers
 const Body = styled.div`
@@ -112,6 +114,8 @@ function App() {
     triggerOnce: false,
   });
 
+  const [skillsVersion, setSkillsVersion] = useState("original");
+
   return (
     <ThemeProvider theme={isStarTheme ? starThemeObject : darkMode ? darkTheme : lightTheme}>
       <Router>
@@ -128,8 +132,14 @@ function App() {
           <AnimatedCountingCard />
 
           <Wrapper>
+
             <AnimatedInfiniteScrollText />
-            <AnimatedSkills />
+            <SkillSwitcher skillsVersion={skillsVersion} setSkillsVersion={setSkillsVersion} />
+  {skillsVersion === "original" ? (
+    <AnimatedSkills />
+  ) : (
+    <SkillsModified />
+  )}
             <AnimatedEducation1 />
             <AnimatedEducation />
             <AnimatedExperience />

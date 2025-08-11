@@ -154,7 +154,7 @@ export const GitHubButton = styled.a`
     theme.mode === 'dark' ? 'rgba(249, 245, 245, 0.99)' : 'rgba(0, 0, 0, 0.04)'};
   color: ${({ theme }) => (theme.mode === 'dark' ? 'white' : theme.accent)}; /* Change text color based on dark/light mode */
 
-  padding: 10px 20px;
+  padding: 7px 15px;
   font-size: 15px;
   font-weight: 500;
   border-radius: 12px;
@@ -194,23 +194,46 @@ export const GitHubButton = styled.a`
 `;
 
 export const ThemeToggleButton = styled.button`
-  padding: 8px 18px;
-  font-size: 14px;
-  background: ${({ theme }) => theme.accent + '20'};
+ background: ${({ theme }) =>
+    theme.mode === 'dark' ? 'rgba(249, 245, 245, 0.99)' : 'rgba(0, 0, 0, 0.04)'};
   color: ${({ theme }) => (theme.mode === 'dark' ? 'white' : theme.accent)}; /* Change text color based on dark/light mode */
+
+  padding: 7px 15px;
+  font-size: 15px;
+  font-weight: 500;
   border-radius: 12px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  
+  text-decoration: none;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all 0.35s ease-in-out;
+
   &:hover {
     background: ${({ theme }) => theme.accent};
     color: ${({ theme }) => theme.white};  /* Hover text color will be white */
-    box-shadow: 0 4px 15px ${({ theme }) => theme.accent + '50'};
+    box-shadow: 0 6px 20px ${({ theme }) => theme.accent + '55'};
+    transform: scale(1.03);
+  }
+
+  &:active {
+    transform: scale(0.97);
   }
 
   @media screen and (max-width: 768px) {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+
+  @media screen and (max-width: 480px) {
+    width: 100%;
+    justify-content: center;
+    font-size: 13.5px;
     padding: 8px 14px;
-    font-size: 13px;
   }
 `;
 
@@ -261,22 +284,43 @@ export const MobileIcon = styled.div`
 
 // MOBILE MENU
 export const MobileMenu = styled.div`
+  /* Layout & positioning */
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 16px;
+  gap: 1rem; /* 16px */
   position: absolute;
   top: 80px;
-  right: 0;
+  right: 30px;
   width: 100%;
-  padding: 12px 40px 24px 40px;
-  background: rgba(128, 128, 128, 0.3);
-  transition: all 0.6s ease-in-out;
-  transform: ${({ isOpen }) => (isOpen ? 'translateY(0)' : 'translateY(-100%)')};
-  border-radius: 0 0 20px 20px;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
-  opacity: ${({ isOpen }) => (isOpen ? '100%' : '0')};
-  z-index: ${({ isOpen }) => (isOpen ? '1000' : '-1000')};
+  max-width: 360px; /* Limit max width on larger screens */
+  padding: 1rem 2rem 1.5rem 2rem; /* Responsive padding */
+  margin: 0 auto;
+
+  /* Visual styling */
+  background: rgba(30, 30, 30, 0.9); /* Dark translucent for modern vibe */
+  backdrop-filter: blur(14px); /* Stronger frosted glass */
+  border-radius: 0 0 1.5rem 1.5rem; /* Rounded bottom corners */
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3); /* Deeper shadow */
+
+  /* Text styling */
+  color: #f0f0f0; /* Light text for contrast */
+  font-weight: 600;
+  font-size: 1.1rem;
+
+  /* Animation & visibility */
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  transform: ${({ isOpen }) => (isOpen ? "translateY(0)" : "translateY(-110%)")};
+  opacity: ${({ isOpen }) => (isOpen ? "1" : "0")};
+  pointer-events: ${({ isOpen }) => (isOpen ? "auto" : "none")};
+  z-index: 1000;
+
+  /* Responsive tweaks */
+  @media (max-width: 400px) {
+    max-width: 100%;
+    padding: 1rem 1.5rem 1.5rem 1.5rem;
+    font-size: 1rem;
+  }
 `;
 
 // MOBILE NAVIGATION ITEMS
