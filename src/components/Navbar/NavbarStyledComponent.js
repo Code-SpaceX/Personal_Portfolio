@@ -103,70 +103,145 @@ export const NavLink = styled.a`
   }
 `;
 
-// GITHUB BUTTON (Updated Colors)
+export const ButtonContainer = styled.div`
+  width: 40%;
+  height: 40px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px; /* Spacing between buttons */
+  padding: 0 4px;
+  margin: 25%;
+  transition: all 0.3s ease;
+
+  /* Light transparent white background */
+  background: ${({ theme }) =>
+    theme.bg === '#1C1C27'
+      ? 'rgba(255, 255, 255, 0.15)'
+      : 'rgba(255, 255, 255, 0.5)'};
+  backdrop-filter: blur(12px); /* Optional, gives a glass effect */
+  -webkit-backdrop-filter: blur(12px); /* For Safari compatibility */
+
+  /* Ensure the background is light, with transparency */
+  border-radius: 10px;
+
+  /* Set the color based on theme */
+  color: ${({ theme }) =>
+    theme.bg === '#1C1C27' ? 'white' : theme.text_primary}; /* White in dark mode, text_primary in light mode */
+
+  /* 🔻 Hide on mobile */
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+`;
+
+
+
+export const ButtonWrapper = styled.div`
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  justify-content: center;
+
+  /* Responsive Design for Mobile */
+  @media screen and (max-width: 768px) {
+    gap: 8px; /* Reduce gap on smaller screens */
+  }
+`;
+
 export const GitHubButton = styled.a`
-  backdrop-filter: blur(10px);
-  background: ${({ theme }) => theme.accent + '22'};
-  border: 1.5px solid ${({ theme }) => theme.accent};
-  border-radius: 12px;
-  padding: 8px 18px;
-  color: ${({ theme }) => theme.accent};
+  background: ${({ theme }) =>
+    theme.mode === 'dark' ? 'rgba(249, 245, 245, 0.99)' : 'rgba(0, 0, 0, 0.04)'};
+  color: ${({ theme }) => (theme.mode === 'dark' ? 'white' : theme.accent)}; /* Change text color based on dark/light mode */
+
+  padding: 10px 20px;
+  font-size: 15px;
   font-weight: 500;
-  font-size: 16px;
-  text-decoration: none;
-  transition: all 0.4s ease-in-out;
+  border-radius: 12px;
   cursor: pointer;
+  text-decoration: none;
+
   display: flex;
   align-items: center;
   justify-content: center;
 
-  :hover {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all 0.35s ease-in-out;
+
+  &:hover {
     background: ${({ theme }) => theme.accent};
-    color: ${({ theme }) => theme.white};
-    box-shadow: 0 4px 20px ${({ theme }) => theme.accent + '44'};
+    color: ${({ theme }) => theme.white};  /* Hover text color will be white */
+    box-shadow: 0 6px 20px ${({ theme }) => theme.accent + '55'};
+    transform: scale(1.03);
+  }
+
+  &:active {
+    transform: scale(0.97);
   }
 
   @media screen and (max-width: 768px) {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+
+  @media screen and (max-width: 480px) {
+    width: 100%;
+    justify-content: center;
+    font-size: 13.5px;
+    padding: 8px 14px;
+  }
+`;
+
+export const ThemeToggleButton = styled.button`
+  padding: 8px 18px;
+  font-size: 14px;
+  background: ${({ theme }) => theme.accent + '20'};
+  color: ${({ theme }) => (theme.mode === 'dark' ? 'white' : theme.accent)}; /* Change text color based on dark/light mode */
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: ${({ theme }) => theme.accent};
+    color: ${({ theme }) => theme.white};  /* Hover text color will be white */
+    box-shadow: 0 4px 15px ${({ theme }) => theme.accent + '50'};
+  }
+
+  @media screen and (max-width: 768px) {
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+`;
+
+
+export const StarButton = styled.button`
+  background: ${({ theme }) =>
+    theme.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(255, 255, 255, 0.4)'};
+  color: ${({ theme }) => (theme.mode === 'dark' ? 'grey' : theme.accent)};
+  border: 1px solid ${({ theme }) => theme.accent};
+  padding: 8px 14px;
+  border-radius: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  &:hover {
+    background: ${({ theme }) => theme.accent};
+    color: ${({ theme }) => theme.white};
+    box-shadow: 0 6px 20px ${({ theme }) => theme.accent + '55'};
+  }
+
+  @media screen and (max-width: 768px) {
+    padding: 8px 12px;
     font-size: 14px;
   }
 `;
 
-// DARK/LIGHT MODE TOGGLE BUTTON
-export const ThemeToggleButton = styled.button`
-  margin-left: 12px;
-  padding: 8px 16px;
-  border-radius: 12px;
-  color: ${({ theme }) => theme.accent};
-  background: ${({ theme }) => theme.accent + '22'};
-  border: 1.5px solid ${({ theme }) => theme.accent};
-  font-size: 14px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-
-  :hover {
-    background: ${({ theme }) => theme.accent};
-    color: ${({ theme }) => theme.white};
-    box-shadow: 0 4px 20px ${({ theme }) => theme.accent + '44'};
-  }
-
-  @media screen and (max-width: 768px) {
-    display: none;
-  }
-`;
-
-// BUTTON CONTAINER
-export const ButtonContainer = styled.div`
-  width: 80%;
-  height: 80%;
-  display: flex;
-  justify-content: end;
-  align-items: center;
-  padding: 0 6px;
-
-  @media screen and (max-width: 768px) {
-    display: none;
-  }
-`;
 
 // MOBILE ICON
 export const MobileIcon = styled.div`
@@ -299,27 +374,5 @@ export const MobileThemeToggleButton = styled.button`
 
   @media screen and (min-width: 769px) {
     display: none;
-  }
-`;
-
-export const StarButton = styled.button`
-  background: ${({ theme }) => theme.primary};  // Use primary color for background
-  color: ${({ theme }) => theme.text_primary};  // Text color for the button
-  border: none;
-  padding: 12px 24px;  // Add padding (top-bottom: 12px, left-right: 24px)
-  border-radius: 8px;   // Optional: Add rounded corners
-  font-size: 1rem;      // Adjust font size as needed
-  cursor: pointer;
-  transition: background 0.3s ease, color 0.3s ease;
-  margin-left: 16px;    // Add left margin to create a gap between buttons
-  margin-right: 16px;   // Optional: Add right margin for symmetry (adjust as needed)
-
-  &:hover {
-    background: ${({ theme }) => theme.primary + 'cc'};  // Slightly darker on hover
-    color: ${({ theme }) => theme.bg};  // Light text on hover
-  }
-
-  &:focus {
-    outline: none;  // Remove default focus outline
   }
 `;
