@@ -10,8 +10,8 @@ const StarWrapper = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 50%;
+  height: 50%;
   overflow: hidden;
   z-index: -1; /* keep behind all content */
   pointer-events: none;
@@ -19,8 +19,8 @@ const StarWrapper = styled.div`
 
 const Star = styled.div`
   position: absolute;
-  width: 5px;
-  height: 5px;
+  width: 3px;
+  height: 3px;
   background-color: white;
   border-radius: 50%;
   animation: ${starMovement} ${({ speed }) => `${speed}s`} linear infinite;
