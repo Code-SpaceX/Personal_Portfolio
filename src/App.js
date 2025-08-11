@@ -32,7 +32,6 @@ import withAnimateOnView from './components/ReusableUI/withAnimatedOnView.jsx';
 import { useInView } from 'react-intersection-observer';
 import SkillsModified from "./components/Skills/Skills.modified.jsx";
 import SkillSwitcher from "./components/ReusableUI/SkillSwitcher.jsx";
-
 // Styled wrappers
 const Body = styled.div`
   background-color: ${({ theme }) => theme.bg};
@@ -153,7 +152,6 @@ function App() {
               <AnimatedContact />
             </div>
           </Wrapper>
-
           {contactInView && (
             <div style={{ maxWidth: '100%', margin: '0 auto' }}>
               <BowAndArrowGame />

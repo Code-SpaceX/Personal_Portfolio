@@ -1,14 +1,14 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import {
   motion,
-  useAnimationFrame,
-  useMotionTemplate,
   useMotionValue,
   useTransform,
+  useMotionTemplate,
+  useAnimationFrame,
 } from "framer-motion";
 import { cn } from "../../utils/cn";
-import useIsMobile from "./useIsMobile"; 
+import useIsMobile from "./useIsMobile";
 
 const education1 = [
   {
@@ -23,41 +23,86 @@ const education1 = [
     desc: "Built APIs and managed databases from scratch to integrate well with humans.",
     thumbnail: "",
   },
+  {
+    id: 3,
+    title: "Advanced Cloud DevOps",
+    desc: "Automating infrastructure and deployments for global scale.",
+    thumbnail: "",
+  },
 ];
 
 const Education1 = () => {
   const pathRef = useRef(null);
-  const progress = useMotionValue(0);
-  const duration = 15000;
+  const scrollX = useMotionValue(0); // horizontal scroll position
+  const progress = useMotionValue(0); // border animation progress
+  const scrollRef = useRef(0); // actual numeric value for scroll
+  const [isHovered, setIsHovered] = useState(false);
+  const containerRef = useRef(null);
+  const duration = 15000; // full loop in 15s
+  const scrollWidthRef = useRef(0);
 
-  useAnimationFrame((time) => {
+  const loopedData = [...education1, ...education1];
+
+  useEffect(() => {
+    if (containerRef.current) {
+      const width = containerRef.current.scrollWidth / 2;
+      scrollWidthRef.current = width;
+    }
+  }, []);
+
+  useAnimationFrame((time, delta) => {
+    if (isHovered || !scrollWidthRef.current) return;
+
+    const speed = scrollWidthRef.current / duration; // px per ms
+    scrollRef.current += speed * delta;
+
+    // Loop: reset if we've scrolled past half (since data is doubled)
+    if (scrollRef.current >= scrollWidthRef.current) {
+      scrollRef.current -= scrollWidthRef.current;
+    }
+
+    scrollX.set(scrollRef.current);
+
+    // For border animation
     const length = pathRef.current?.getTotalLength();
     if (length) {
-      const pxPerMillisecond = length / duration;
-      const newProgress = (time * pxPerMillisecond) % length;
+      const pxPerMsBorder = length / duration;
+      const newProgress = (time * pxPerMsBorder) % length;
       progress.set(newProgress);
     }
   });
 
   return (
-    <div className="py-20 w-full" id="experience">
+    <div className="py-20 w-full overflow-hidden" id="experience">
       <div className="max-w-7xl mx-auto px-4 text-center">
         <h1 className="text-3xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 mb-6">
           Future Learning / Experience I Will Take
         </h1>
       </div>
 
-      <div className="w-full mt-12 grid lg:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-10 px-4">
-        {education1.map((card) => (
-          <CardItem
-            key={card.id}
-            title={card.title}
-            desc={card.desc}
-            thumbnail={card.thumbnail}
-            progress={progress}
-            pathRef={pathRef}
-          />
-        ))}
+      <div
+        className="overflow-hidden w-full"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        <motion.div
+          className="flex gap-10 mt-12 w-max px-4"
+          ref={containerRef}
+          style={{
+            x: useTransform(scrollX, (val) => `-${val}px`),
+          }}
+        >
+          {loopedData.map((card, index) => (
+            <CardItem
+              key={`${card.id}-${index}`}
+              title={card.title}
+              desc={card.desc}
+              thumbnail={card.thumbnail}
+              progress={progress}
+              pathRef={pathRef}
+            />
+          ))}
+        </motion.div>
       </div>
     </div>
   );
@@ -69,7 +114,7 @@ const CardItem = ({ title, desc, thumbnail, progress, pathRef }) => {
 
   return (
     <Button borderRadius="1.75rem" progress={progress} pathRef={pathRef}>
-      <div className="flex lg:flex-row flex-col lg:items-center p-3 py-6 md:p-5 lg:p-10 gap-4">
+      <div className="flex lg:flex-row flex-col lg:items-center p-3 py-6 md:p-5 lg:p-10 gap-4 w-[500px]">
         {!isMobile && (!imageError && thumbnail ? (
           <img
             src={thumbnail}
@@ -106,7 +151,7 @@ const Button = ({
   return (
     <button
       className={cn(
-        "bg-transparent relative text-xl p-[1px] overflow-hidden md:col-span-2 md:row-span-1"
+        "bg-transparent relative text-xl p-[1px] overflow-hidden"
       )}
       style={{ borderRadius }}
       {...otherProps}
