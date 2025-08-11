@@ -285,4 +285,24 @@ export const MobileThemeToggleButton = styled.button`
   }
 `;
 
+export const StarButton = styled.button`
+  background: ${({ theme }) => theme.primary};  // Use primary color for background
+  color: ${({ theme }) => theme.text_primary};  // Text color for the button
+  border: none;
+  padding: 12px 24px;  // Add padding (top-bottom: 12px, left-right: 24px)
+  border-radius: 8px;   // Optional: Add rounded corners
+  font-size: 1rem;      // Adjust font size as needed
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease;
+  margin-left: 16px;    // Add left margin to create a gap between buttons
+  margin-right: 16px;   // Optional: Add right margin for symmetry (adjust as needed)
 
+  &:hover {
+    background: ${({ theme }) => theme.primary + 'cc'};  // Slightly darker on hover
+    color: ${({ theme }) => theme.bg};  // Light text on hover
+  }
+
+  &:focus {
+    outline: none;  // Remove default focus outline
+  }
+`;
