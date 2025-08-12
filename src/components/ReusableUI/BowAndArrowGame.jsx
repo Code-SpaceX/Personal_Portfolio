@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useMemo } from 'react';
 
 const BowAndArrowGame = () => {
   const canvasRef = useRef(null);
@@ -10,13 +10,14 @@ const BowAndArrowGame = () => {
   const [canvasSize, setCanvasSize] = useState({ width: 800, height: 300 });
   const [targetY, setTargetY] = useState(100);
   const [targetDirection, setTargetDirection] = useState(1);
-  const [prefersDark, setPrefersDark] = useState(
-    window.matchMedia &&
-      window.matchMedia('(prefers-color-scheme: dark)').matches
-  );
-  const targetRadius = 30;
 
-  // Update theme dynamically on system theme change
+  // Instead of just system theme, store user preference or fallback to system
+  const getSystemPrefersDark = () =>
+    window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+  const [prefersDark, setPrefersDark] = useState(getSystemPrefersDark());
+
+  // Update theme dynamically on system theme change only if user hasn't toggled manually
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     const handleChange = (e) => {
@@ -26,8 +27,8 @@ const BowAndArrowGame = () => {
     return () => mediaQuery.removeEventListener('change', handleChange);
   }, []);
 
-  // Colors based on current theme
-  const colors = {
+  // Memoize colors for stable reference
+  const colors = useMemo(() => ({
     background: prefersDark ? '#1e1e1e' : '#f9f9f9',
     text: prefersDark ? '#ffffff' : '#2c3e50',
     bow: prefersDark ? '#ecf0f1' : '#2c3e50',
@@ -37,7 +38,7 @@ const BowAndArrowGame = () => {
     miss: '#e74c3c',
     king: '#f39c12',
     border: prefersDark ? '#555' : '#ccc',
-  };
+  }), [prefersDark]);
 
   const bowX = 100;
   const bowY = canvasSize.height / 2;
@@ -74,6 +75,11 @@ const BowAndArrowGame = () => {
     setPoints(0);
   };
 
+  // User toggle for dark/light mode
+  const toggleTheme = () => {
+    setPrefersDark(d => !d);
+  };
+
   useEffect(() => {
     const resize = () => {
       setCanvasSize({
@@ -101,7 +107,7 @@ const BowAndArrowGame = () => {
     const updateTarget = () => {
       const speed = 0.01;
       const newY = targetY + targetDirection * speed;
-      if (newY > canvasSize.height - targetRadius || newY < targetRadius) {
+      if (newY > canvasSize.height - 30 || newY < 30) {
         setTargetDirection(-targetDirection);
       } else {
         setTargetY(newY);
@@ -116,9 +122,9 @@ const BowAndArrowGame = () => {
       const dy = targetY - newY;
       const dist = Math.hypot(dx, dy);
 
-      if (dist < targetRadius) {
+      if (dist < 30) {
         setHit(true);
-        setPoints((p) => p + 1);
+        setPoints(p => p + 1);
         setArrow(null);
       } else if (
         newX > canvasSize.width ||
@@ -140,7 +146,7 @@ const BowAndArrowGame = () => {
       ctx.fillRect(0, 0, canvasSize.width, canvasSize.height);
 
       ctx.beginPath();
-      ctx.arc(canvasSize.width - 100, targetY, targetRadius, 0, 2 * Math.PI);
+      ctx.arc(canvasSize.width - 100, targetY, 30, 0, 2 * Math.PI);
       ctx.fillStyle = hit === null ? colors.miss : hit ? colors.hit : colors.miss;
       ctx.fill();
 
@@ -247,6 +253,20 @@ const BowAndArrowGame = () => {
       }}
     >
       <h2 style={styles.title}>🏹 Bow and Arrow Game</h2>
+      
+      {/* Toggle button for dark/light mode */}
+      <button
+        onClick={toggleTheme}
+        style={{
+          ...styles.button,
+          backgroundColor: prefersDark ? '#f39c12' : '#3498db',
+          marginBottom: '15px',
+        }}
+        aria-label="Toggle dark/light mode"
+      >
+        Switch to {prefersDark ? 'Light' : 'Dark'} Mode
+      </button>
+
       <canvas
         ref={canvasRef}
         width={canvasSize.width}
@@ -283,7 +303,6 @@ const styles = {
     margin: '0 auto',
   },
   button: {
-    marginTop: '15px',
     padding: '10px 20px',
     fontSize: '16px',
     backgroundColor: '#2ecc71',
